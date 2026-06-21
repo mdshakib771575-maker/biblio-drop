@@ -1,4 +1,5 @@
 "use client";
+import Logo from "@/components/Logo";
 import { authClient } from "@/lib/auth-client";
 import {
   Button,
@@ -31,12 +32,15 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-2xl mx-auto border mt-5">
+    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-md mx-auto border mt-5">
       <Surface className="w-full">
         <Form onSubmit={onSubmit}>
           <Fieldset className="w-full">
-            <Fieldset.Legend>Signup</Fieldset.Legend>
-            <Description>Create your account</Description>
+            <div className="mx-auto">
+            <Logo></Logo>
+
+            </div>
+            <Description className="text-xl mx-auto" >Create your account</Description>
             <Fieldset.Group>
               <TextField isRequired name="name">
                 <Label>Name</Label>
@@ -69,12 +73,12 @@ export default function SignUpPage() {
                 </Select.Trigger>
                 <Select.Popover>
                   <ListBox>
-                    <ListBox.Item id="buyer" textValue="buyer">
-                      Buyer
+                    <ListBox.Item id="user" textValue="buyer">
+                      User
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
-                    <ListBox.Item id="seller" textValue="seller">
-                      Seller
+                    <ListBox.Item id="librarian" textValue="seller">
+                       Librarian
                       <ListBox.ItemIndicator />
                     </ListBox.Item>
                   </ListBox>
@@ -82,7 +86,7 @@ export default function SignUpPage() {
               </Select>
             </Fieldset.Group>
 
-            <Button type="submit" className={"w-full"}>
+            <Button type="submit" className={"w-full bg-gradient-to-r from-pink-500 to-purple-500"}>
               Signup
             </Button>
           </Fieldset>

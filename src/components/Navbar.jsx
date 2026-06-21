@@ -4,30 +4,29 @@ import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown, Label } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard } from "react-icons/md";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
+  
+  const pathname =usePathname();
+  if(pathname.includes("dashboard")){
+      return null;  
+  }
 
   const handleSignOut = async () => {
     await authClient.signOut();
   };
   return (
     <div>
-      <div className="bg-black p-1 text-white">
-        <marquee>
-          🎉 Avail Up to 4% Extra Discount with Bank Transfer | 💳 Cash on
-          Delivery Available | 🚚 Fast Delivery in 2–3 Days.
-        </marquee>
-      </div>
-
       <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
         <header className="mx-auto flex h-16 max-w-7xl items-center justify-between px-2">
           <div className="flex items-center gap-4">
@@ -61,38 +60,34 @@ const Navbar = () => {
                 )}
               </svg>
             </button>
-            <Link href={'/'}>
-              <div className="flex items-center gap-3">
-                <Image
-                  height={40}
-                  width={40}
-                  loading="eager"
-                  src="/logo.webp"
-                  alt="logo"
-                />
-                <p className="font-bold">Tech Bazaar</p>
-              </div>
-            </Link>
+            
+           <Logo></Logo>
           </div>
           <ul className="hidden items-center gap-4 md:flex">
             <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
               <Link
-                href="#"
-                className="font-medium text-accent"
-                aria-current="page"
-              >
-                Browse Products
-              </Link>
+                href="#">Browse Books</Link>
             </li>
             <li>
               <Link href="/pricing">Pricing</Link>
             </li>
+         
+            
+         
+             
+          {user &&( <li>
+              <Link  href={`/dashboard/${user?.role}`}>Dashboard</Link>
+            </li>)}
           </ul>
+          
          {!user && (
             <div className="hidden items-center gap-4 md:flex">
               <Link href="/signin">Login</Link>
               <Link href="/signup">
-                <Button>Sign Up</Button>
+                <Button className={"bg-gradient-to-r from-pink-500 to-purple-500"}>Sign Up</Button>
               </Link>
             </div>
           )}
@@ -131,13 +126,13 @@ const Navbar = () => {
                     onAction={(key) => console.log(`Selected: ${key}`)}
                   >
                     <Dropdown.Item id="new-file" textValue="New file">
-                      {/* <Link
+                      <Link
                         className="flex items-center gap-2"
                         href={`/dashboard/${user?.role}`}
-                      > */}
+                      >
                         <MdDashboard />
                         <Label>Dashboard</Label>
-                      {/* </Link> */}
+                      </Link>
                     </Dropdown.Item>
 
                     <Dropdown.Item id="copy-link" textValue="Copy link">

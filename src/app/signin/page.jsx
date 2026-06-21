@@ -1,4 +1,5 @@
 "use client";
+import Logo from "@/components/Logo";
 import { authClient } from "@/lib/auth-client";
 import {
   Button,
@@ -29,12 +30,15 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-2xl mx-auto border mt-5">
+    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-sm mx-auto border mt-5">
       <Surface className="w-full">
         <Form onSubmit={onSubmit}>
           <Fieldset className="w-full">
-            <Fieldset.Legend>Signup</Fieldset.Legend>
+            <div className="mx-auto">
+
+          <Logo></Logo>
             <Description>Create your account</Description>
+            </div>
             <Fieldset.Group>
               <TextField isRequired name="email" type="email">
                 <Label>Email</Label>
@@ -49,7 +53,7 @@ export default function SignInPage() {
               </TextField>
             </Fieldset.Group>
 
-            <Button type="submit" className={"w-full"}>
+            <Button type="submit" className={"w-full bg-gradient-to-r from-pink-500 to-purple-500"}>
               Signin
             </Button>
           </Fieldset>

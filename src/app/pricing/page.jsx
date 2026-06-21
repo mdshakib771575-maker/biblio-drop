@@ -3,7 +3,7 @@ import { Button } from "@heroui/react";
 export default function SellerPricingPage() {
   const plans = [
     {
-      name: "Starter Seller",
+      name: "Starter Librarian",
       price: "$4",
       period: "/month",
       description: "Perfect for new sellers starting their journey.",
@@ -17,7 +17,7 @@ export default function SellerPricingPage() {
       popular: false,
     },
     {
-      name: "Professional Seller",
+      name: "Professional Librarian",
       price: "$14",
       period: "/month",
       description: "For growing businesses that need more visibility.",
@@ -32,7 +32,7 @@ export default function SellerPricingPage() {
       popular: true,
     },
     {
-      name: "Enterprise Seller",
+      name: "Enterprise Librarian",
       price: "Custom",
       period: "",
       description: "For brands and large-scale businesses.",
@@ -49,11 +49,11 @@ export default function SellerPricingPage() {
   ];
 
   return (
-    <main className="bg-linear-to-b from-white to-gray-50">
+    <main className="bg-linear-to-b from-white to-gray-50 w-11/12 mx-auto">
       {/* Hero */}
-      <section className="mx-auto max-w-7xl px-4 py-20 text-center">
+      <section className="mx-auto max-w-11/12 px-4 py-20 text-center">
         <span className="inline-flex rounded-full border px-4 py-1 text-sm font-medium">
-          Become a Seller
+          Become a Librarian
         </span>
 
         <h1 className="mt-6 text-4xl font-bold tracking-tight md:text-6xl">
@@ -122,7 +122,7 @@ export default function SellerPricingPage() {
               ) : (
                 <Button
                   className={`mt-8 w-full  font-medium`}
-                >Become Seller</Button>
+                >Become Librarian</Button>
               )}
             </div>
           ))}
@@ -150,7 +150,7 @@ export default function SellerPricingPage() {
             </div>
 
             <div className="rounded-2xl border p-6">
-              <h3 className="font-semibold">Seller Dashboard</h3>
+              <h3 className="font-semibold">Librarian Dashboard</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Track sales, inventory, and performance.
               </p>
@@ -176,7 +176,7 @@ export default function SellerPricingPage() {
           </p>
 
           <button className="mt-8 rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">
-            Apply as Seller
+            Apply as Librarian
           </button>
         </div>
       </section>

@@ -8,23 +8,16 @@ import {
 import { FaFacebook } from "react-icons/fa";
 import { BsInstagram, BsTwitter } from "react-icons/bs";
 import { LiaLinkedin } from "react-icons/lia";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t bg-background">
+    <footer className=" border-t bg-background">
       <div className="container mx-auto px-4">
         <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-block">
-              <Image
-                src="/logo-xl.png"
-                alt="Logo"
-                width={180}
-                height={50}
-                className="h-12 w-auto"
-              />
-            </Link>
+           <Logo></Logo>
 
             <p className="mt-4 text-sm text-muted-foreground">
               Discover quality products at great prices. Fast delivery,
