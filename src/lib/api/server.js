@@ -9,7 +9,9 @@ export const serverMutation = async (path,method,data)=>{
         headers:{
             "Content-Type":"application/json"
         },
-        body:JSON.stringify(data)
+      if (data) {
+    options.body = JSON.stringify(data);
+  }
         
     })
     return res.json();

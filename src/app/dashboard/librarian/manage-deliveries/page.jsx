@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { Button, Chip, Table } from "@heroui/react";
+import DashboardHeading from "@/components/DashboardHeading";
 // import { serverFetch } from "@/lib/api/server";
 
 export default function ManageDeliveriesTable() {
@@ -56,6 +57,8 @@ export default function ManageDeliveriesTable() {
   };
 
   return (
+    <>
+     <DashboardHeading title={"Manage Deliveries"} description={"all user deliverids request here"}></DashboardHeading>
     <Table>
       <Table.ResizableContainer>
         <Table.Content
@@ -179,5 +182,6 @@ export default function ManageDeliveriesTable() {
         </Table.Content>
       </Table.ResizableContainer>
     </Table>
+    </>
   );
 }

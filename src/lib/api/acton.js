@@ -10,8 +10,22 @@ export const AddBook = async (data)=>{
     return resData; 
 }
 
-export const updateOrganizetion = async (data,id)=>{
-    const resData = await serverMutation(`/api/organizations/${id}`,"PATCH",data);
+export const UpdateLibrarianBook = async (id, data) => {
+  return await serverMutation(`/api/books/${id}`,
+    "PATCH",
+    data
+  );
+};
+// export const DeleteLibrariaBook = async (data,id)=>{
+//     const resData = await serverMutation(`/api/books/${id}`,"DELETE",data);
     
-    return resData; 
-}
+//     return resData; 
+// }
+
+export const DeleteLibrarianBook = async (id) => {
+  const resData = await serverMutation(`/api/books/${id}`,
+    "DELETE"
+  );
+
+  return resData;
+};

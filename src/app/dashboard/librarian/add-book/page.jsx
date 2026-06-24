@@ -87,6 +87,9 @@ export default function AddBookForm() {
                     className="space-y-6"
                 >
                     <div className="grid md:grid-cols-2 gap-6">
+                        <div className="flex flex-col gap-1.5">
+                            <label htmlFor="">Book Title </label>
+                        
                         {/* Book Title */}
                         <Input
                             label="Book Title"
@@ -96,8 +99,13 @@ export default function AddBookForm() {
                                 required: "Book title is required",
                             })}
                         />
+                        </div>
 
                         {/* Author */}
+                        <div className="flex flex-col gap-1.5">
+
+                       
+                         <label htmlFor="">Author </label>
 
                         <Input
                             label="Author Name"
@@ -108,11 +116,15 @@ export default function AddBookForm() {
                                 required: "Author name is required",
                             })}
                         />
+                         </div>
 
+                         <div className="flex flex-col gap-1.5">
+                            <label htmlFor="">Category</label>
+                      
                         {/* Category */}
                         <select
                             label="Category"
-                            className="rounded-xl shadow"
+                            className="rounded-xl p-2 shadow"
                             placeholder="Select category"
                             {...register("category", {
                                 required: true,
@@ -127,7 +139,11 @@ export default function AddBookForm() {
                                 </option>
                             ))}
                         </select>
+                           </div>
 
+                         <div className="flex flex-col gap-1.5">
+                            <label htmlFor="">Delivery Fee</label>
+                     
                         {/* Delivery Fee */}
                         <Input
                             type="number"
@@ -138,6 +154,7 @@ export default function AddBookForm() {
                                 required: true,
                             })}
                         />
+                            </div>
                     </div>
 
                     {/* Image Upload */}
@@ -174,7 +191,7 @@ export default function AddBookForm() {
                         {...register("description", {
                             required: "Description is required",
                         })}
-                        rows={5}
+                        rows={4}
                         placeholder="Write a short description about the book..."
                         className="w-full rounded-xl border border-default-200 p-3 outline-none focus:border-primary"
                     />
