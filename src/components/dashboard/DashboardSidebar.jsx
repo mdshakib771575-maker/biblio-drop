@@ -18,6 +18,7 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Logo from "../Logo";
 
 const DashboardSidebar = () => {
   const router = useRouter();
@@ -50,20 +51,20 @@ const DashboardSidebar = () => {
       key: "overview",
       label: "Overview",
       icon: FaUsers,
-      href: "/dashboard/organizer",
+      href: "/dashboard/librarian",
     },
     {
       key: "addbook",
       label: "Add Book",
            icon: FaPlus,
       
-      href: "/dashboard/organizer/organization",
+      href: "/dashboard/librarian/add-book",
     },
     {
       key: "manageinventory",
       label: "Manage Inventory",
       icon: FaUsers,
-      href: "/dashboard/organizer/add-event",
+      href: "/dashboard/librarian/manage-inventory",
     },
    
     {
@@ -71,7 +72,7 @@ const DashboardSidebar = () => {
       label: "Manage Deliveries",
           icon: FaBuilding,
   
-      href: "/dashboard/attendees",
+      href: "/dashboard/librarian/manage-deliveries",
     },
   ];
 
@@ -154,7 +155,7 @@ const DashboardSidebar = () => {
       <aside
         className={`
           fixed top-0 left-0 z-50
-          w-64 h-screen border-r
+          w-64 min-h-screen border-r
           transform transition-transform duration-300
           bg-slate-950
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
@@ -173,7 +174,7 @@ const DashboardSidebar = () => {
           <div className="px-6 py-5 border-b border-white/5"></div>
 
           {/* User Profile */}
-          <p className=" px-8 text-2xl text-pink-500">BookNest</p>
+        <div className="pl-6"><Logo></Logo></div>
           <div className="px-6 py-5 border-b border-white/5">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-pink-500/60 shrink-0">

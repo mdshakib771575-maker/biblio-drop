@@ -7,9 +7,9 @@ export async function proxy(request) {
     headers: await headers()
    }) 
    console.log(session)
-   if(session?.user?.role =="librarian" && session?.user?.plan=="free"){
-     return NextResponse.redirect(new URL('/pricing', request.url))
-   }
+  //  if(session?.user?.role =="librarian" && session?.user?.plan=="free"){
+  //    return NextResponse.redirect(new URL('/pricing', request.url))
+  //  }
 
    if(!session){
     return NextResponse.redirect(new URL('/signin', request.url))

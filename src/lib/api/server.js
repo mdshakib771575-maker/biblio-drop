@@ -1,0 +1,39 @@
+
+import { baseUrl } from "./baseUrl";
+
+export const serverMutation = async (path,method,data)=>{
+    console.log("data",data)
+    console.log(path)
+    const res = await fetch(`${baseUrl}${path}`,{
+        method:method,
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+        
+    })
+    return res.json();
+}
+
+export const updateStatus = async (id, status) => {
+  try {
+    const res = await fetch(`/api/deliveries/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    if (res.ok) {
+      fetchDeliveries(); // data reload
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const serverFetch = async (path)=>{
+    const res = await fetch(`${baseUrl}${path}`)
+    return res.json();
+}
