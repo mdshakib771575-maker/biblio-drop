@@ -16,9 +16,12 @@ import {
   FaUserCircle,
   FaUsers,
   FaUserShield,
+  FaBook,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Logo from "../Logo";
+import DashboardHeading from "../DashboardHeading";
+import { MdElectricCar, MdRateReview } from "react-icons/md";
 
 const DashboardSidebar = () => {
   const router = useRouter();
@@ -81,19 +84,25 @@ const DashboardSidebar = () => {
       key: "overview",
       label: "Overview",
       icon: FaUserCircle,
-      href: "/dashboard/overview",
+      href: "/dashboard/user",
     },
     {
       key: "deliveryhistory",
       label: "Delivery History",
-      icon: FaTicketAlt,
-      href: "/dashboard/browsebooks",
+      icon: MdElectricCar,
+      href: "/dashboard/user/delivery-history",
     },
     {
       key: " myreadinglist",
       label: "My Reading List",
-      icon: FaHistory,
-      href: "/dashboard/requestdelivery",
+      icon:FaBook ,
+      href: "/dashboard/user/my-redinglist",
+    },
+    {
+      key: " myreviews",
+      label: " My Reviews",
+      icon: MdRateReview ,
+      href: "/dashboard/user/my-reviews",
     },
   ];
 
@@ -135,6 +144,7 @@ const DashboardSidebar = () => {
 
   return (
     <>
+  
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(true)}

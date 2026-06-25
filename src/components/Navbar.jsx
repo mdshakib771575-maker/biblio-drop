@@ -10,6 +10,7 @@ import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdDashboard } from "react-icons/md";
 import Logo from "./Logo";
+import NavLink from "./NavLink";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -65,21 +66,21 @@ const Navbar = () => {
           </div>
           <ul className="hidden items-center gap-4 md:flex">
             <li>
-              <Link href="/">Home</Link>
+              <NavLink href="/">Home</NavLink>
             </li>
             <li>
-              <Link
-                href="#">Browse Books</Link>
+              <NavLink
+                href="#">Browse Books</NavLink>
             </li>
             <li>
-              <Link href="/pricing">Pricing</Link>
+              <NavLink href="/pricing">Pricing</NavLink>
             </li>
          
             
          
              
           {user &&( <li>
-              <Link  href={`/dashboard/${user?.role}`}>Dashboard</Link>
+              <NavLink  href={`/dashboard/${user?.role}`}>Dashboard</NavLink>
             </li>)}
           </ul>
           
