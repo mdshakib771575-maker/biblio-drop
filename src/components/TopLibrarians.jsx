@@ -122,8 +122,8 @@ export default function TopLibrarians() {
 
                 {/* Button */}
                 <Button
-                  variant="bordered"
-                  className="w-full rounded-2xl border-purple-300 text-purple-600 font-bold text-lg py-6"
+                  variant="outline"
+                  className="w-full rounded-2xl border-purple-300 text-purple-600 font-bold text-lg py-6 hover:bg-gradient-to-r from-pink-500 to-purple-500 hover:text-white"
                 >
                   <Trophy size={18} />
                   View Profile

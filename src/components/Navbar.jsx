@@ -178,7 +178,7 @@ const Navbar = () => {
                 <Link href="#" className="block py-2">
                   Login
                 </Link>
-                <Button className="w-full">Sign Up</Button>
+                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500">Sign Up</Button>
               </li>
             </ul>
           </div>

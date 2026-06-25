@@ -117,25 +117,25 @@ const DashboardSidebar = () => {
       key: "aookapprovalqueue",
       label: "Book Approval Queue",
       icon: FaCalendarAlt,
-      href: "/dashboard/events",
+      href: "/dashboard/admin/book-approval-queue",
     },
     {
       key: "manageusers",
       label: "Manage Users ",
-      icon: FaHistory,
-      href: "/dashboard/transactions",
+      icon: FaUsers,
+      href: "/dashboard/admin/manage-users",
     },
     {
       key: "manageallbooks",
       label: "Manage All Books ",
       icon: FaHistory,
-      href: "/dashboard/transactions",
+      href: "/dashboard/admin/manage-all-books",
     },
     {
       key: "viewalltransactions",
       label: "View All Transactions ",
       icon: FaHistory,
-      href: "/dashboard/transactions",
+      href: "/dashboard/admin/transactions",
     },
   ];
 
