@@ -1,21 +1,16 @@
 
 import { baseUrl } from "./baseUrl";
+export const serverMutation = async (path, method, data) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  });
 
-export const serverMutation = async (path,method,data)=>{
-    console.log("data",data)
-    console.log(path)
-    const res = await fetch(`${baseUrl}${path}`,{
-        method:method,
-        headers:{
-            "Content-Type":"application/json"
-        },
-      if (data) {
-    options.body = JSON.stringify(data);
-  }
-        
-    })
-    return res.json();
-}
+  return res.json();
+};
 
 export const updateStatus = async (id, status) => {
   try {

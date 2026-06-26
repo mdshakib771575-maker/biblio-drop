@@ -23,6 +23,7 @@ import DashboardHeading from "@/components/DashboardHeading";
 import { uploadImage } from "@/utils/UploadImage";
 import { AddBook } from "@/lib/api/acton";
 import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 const categories = [
     "Fiction",
@@ -42,6 +43,9 @@ export default function AddBookForm() {
     } = useForm();
 
     // const [image, setImage] = useState(null);
+
+    const { data: session } = authClient.useSession();
+    console.log(session.user)
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
@@ -57,17 +61,19 @@ export default function AddBookForm() {
                 deliveryFee: Number(data.deliveryFee),
                 description: data.description,
                 image: imageUrl,
+                ownerName: session?.user?.name,
+                ownerEmail: session?.user?.email,
 
             };
 
             // console.log(bookData);
 
             // API Call
-             const resData = await AddBook(bookData)
-        console.log(resData)
-         if(resData.insetedId){
-            toast.success(" Org Profile Added")
-        }
+            const resData = await AddBook(bookData)
+            console.log(resData)
+            if (resData.insertedId) {
+                toast.success("Book Added")
+            }
             // await axios.post("/api/books", bookData)
 
         } catch (error) {
@@ -89,72 +95,72 @@ export default function AddBookForm() {
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="flex flex-col gap-1.5">
                             <label htmlFor="">Book Title </label>
-                        
-                        {/* Book Title */}
-                        <Input
-                            label="Book Title"
-                            placeholder="Book Title"
 
-                            {...register("title", {
-                                required: "Book title is required",
-                            })}
-                        />
+                            {/* Book Title */}
+                            <Input
+                                label="Book Title"
+                                placeholder="Book Title"
+
+                                {...register("title", {
+                                    required: "Book title is required",
+                                })}
+                            />
                         </div>
 
                         {/* Author */}
                         <div className="flex flex-col gap-1.5">
 
-                       
-                         <label htmlFor="">Author </label>
 
-                        <Input
-                            label="Author Name"
+                            <label htmlFor="">Author </label>
 
-                            placeholder="Author Name"
+                            <Input
+                                label="Author Name"
 
-                            {...register("author", {
-                                required: "Author name is required",
-                            })}
-                        />
-                         </div>
+                                placeholder="Author Name"
 
-                         <div className="flex flex-col gap-1.5">
+                                {...register("author", {
+                                    required: "Author name is required",
+                                })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
                             <label htmlFor="">Category</label>
-                      
-                        {/* Category */}
-                        <select
-                            label="Category"
-                            className="rounded-xl p-2 shadow"
-                            placeholder="Select category"
-                            {...register("category", {
-                                required: true,
-                            })}
-                        >
-                            {categories.map((item) => (
-                                <option
-                                    key={item}
-                                    value={item}
-                                >
-                                    {item}
-                                </option>
-                            ))}
-                        </select>
-                           </div>
 
-                         <div className="flex flex-col gap-1.5">
+                            {/* Category */}
+                            <select
+                                label="Category"
+                                className="rounded-xl p-2 shadow"
+                                placeholder="Select category"
+                                {...register("category", {
+                                    required: true,
+                                })}
+                            >
+                                {categories.map((item) => (
+                                    <option
+                                        key={item}
+                                        value={item}
+                                    >
+                                        {item}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
                             <label htmlFor="">Delivery Fee</label>
-                     
-                        {/* Delivery Fee */}
-                        <Input
-                            type="number"
-                            label="Delivery Fee"
-                            placeholder="50"
 
-                            {...register("deliveryFee", {
-                                required: true,
-                            })}
-                        />
-                            </div>
+                            {/* Delivery Fee */}
+                            <Input
+                                type="number"
+                                label="Delivery Fee"
+                                placeholder="50"
+
+                                {...register("deliveryFee", {
+                                    required: true,
+                                })}
+                            />
+                        </div>
                     </div>
 
                     {/* Image Upload */}

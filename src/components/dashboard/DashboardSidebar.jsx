@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import Logo from "../Logo";
 import DashboardHeading from "../DashboardHeading";
 import { MdElectricCar, MdRateReview } from "react-icons/md";
+import { TbTransactionDollar } from "react-icons/tb";
 
 const DashboardSidebar = () => {
   const router = useRouter();
@@ -111,7 +112,7 @@ const DashboardSidebar = () => {
       key: "Overview",
       label: "Overview",
       icon: FaUserShield,
-      href: "/dashboard/users",
+      href: "/dashboard/admin",
     },
     {
       key: "aookapprovalqueue",
@@ -128,14 +129,14 @@ const DashboardSidebar = () => {
     {
       key: "manageallbooks",
       label: "Manage All Books ",
-      icon: FaHistory,
+      icon: FaBook ,
       href: "/dashboard/admin/manage-all-books",
-    },
+    },  
     {
       key: "viewalltransactions",
-      label: "View All Transactions ",
-      icon: FaHistory,
-      href: "/dashboard/admin/transactions",
+      label: "View All Transactions",
+      icon: TbTransactionDollar ,
+      href: "/dashboard/admin/view-all-transactions",
     },
   ];
 

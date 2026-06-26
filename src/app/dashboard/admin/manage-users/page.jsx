@@ -1,10 +1,12 @@
 "use client"
+import DashboardHeading from '@/components/DashboardHeading';
 import { Button, Chip, Table } from '@heroui/react';
 import React from 'react';
 
 const ManageUsers = () => {
     return (
         <div>
+          <DashboardHeading title={" Manage Users"} description={" Manage user roles and permissions across the platform."}></DashboardHeading>
             <Table>
   <Table.ResizableContainer>
     <Table.Content
@@ -67,11 +69,11 @@ const ManageUsers = () => {
               User
             </Chip>
           </Table.Cell>
-          <Table.Cell>
-            <Chip color="success" size="sm" variant="soft">
-              Active
-            </Chip>
-          </Table.Cell>
+            <Table.Cell>
+              <Chip color="success" size="sm" variant="soft">
+                Active
+              </Chip>
+            </Table.Cell>
           <Table.Cell>
             <div className="flex gap-2">
               <Button

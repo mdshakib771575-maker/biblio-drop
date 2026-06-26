@@ -13,6 +13,7 @@ import {
     PieChart,
     Pie,
     Cell,
+    Legend,
 } from "recharts";
 
 
@@ -40,7 +41,6 @@ const LibrarianDashboardHomePage = () => {
         totalSoldTickets: 780,
     };
 
-    const isPremium = true;
 
     return (
         <div>
@@ -75,20 +75,6 @@ const LibrarianDashboardHomePage = () => {
                         </div>
                     </Card>
                 </div>
-{/* 
-                {!isPremium && (
-                    <Card className="border border-yellow-500/20 bg-gradient-to-r from-yellow-500/5 via-amber-600/5 to-transparent relative overflow-hidden" radius="lg">
-                        <div className="p-8 flex flex-col md:flex-row items-center justify-between gap-6 z-10">
-                            <div className="space-y-2">
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2"><FaCrown className="text-yellow-400" /> Unlock Unlimited Event Creation</h3>
-                                <p className="text-slate-400 text-xs max-w-xl leading-relaxed">Standard organizer accounts are limited to <strong>3 events</strong>. Upgrade to our Premium Package for <strong>$49.00</strong> to host unlimited events.</p>
-                            </div>
-                            <Button className="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold h-11 px-6 shadow-lg shadow-yellow-500/10 shrink-0" radius="lg">
-                                Upgrade to Premium
-                            </Button>
-                        </div>
-                    </Card>
-                )} */}
             </div>
 
       {/* Rechart */}
@@ -105,28 +91,34 @@ const LibrarianDashboardHomePage = () => {
                 </div>
 
                 <div className="h-[340px] w-full shadow-xl rounded-xl">
-                    <ResponsiveContainer>
-                        <PieChart>
-                            <Pie
+                  {/* pai Chart */}
+                    <ResponsiveContainer width="100%" height="100%">
+                            <PieChart>
+                              <Pie
                                 data={Paidata}
+                                cx="50%"
+                                cy="50%"
+                                outerRadius={110}
+                                innerRadius={60}
                                 dataKey="value"
                                 nameKey="name"
-                                innerRadius={60}
-                                outerRadius={100}
-                                paddingAngle={3}
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell
-                                        key={index}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
+                                label
+                              >
+                                {Paidata.map((entry, index) => (
+                                  <Cell
+                                    key={`cell-${index}`}
+                                    fill={COLORS[index % COLORS.length]}
+                                  />
                                 ))}
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
+                              </Pie>
+                    
+                              <Tooltip />
+                              <Legend />
+                            </PieChart>
+                          </ResponsiveContainer>
                 </div>
             </div>
+            
 
             <div className='mt-10'>
                 <Table>
