@@ -70,7 +70,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                href="#">Browse Books</NavLink>
+                href="/all-books">Browse Books</NavLink>
             </li>
             <li>
               <NavLink href="/pricing">Pricing</NavLink>
