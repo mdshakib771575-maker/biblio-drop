@@ -1,15 +1,27 @@
 "use client";
 
-import { Card, CardBody, Chip, Button } from "@heroui/react";
+import { Card, CardBody, Chip, Button, AlertDialog } from "@heroui/react";
 import Image from "next/image";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import { Star } from "lucide-react";
 import EditReviewModal from "./EditReviewModal";
 import { UpdateReview } from "@/lib/api/server";
 import toast from "react-hot-toast";
+import { DeleteReview } from "@/lib/api/acton";
 
 
-export default function ReviewCard({ review,refetch}) {
+
+export default function ReviewCard({ review, refetch }) {
+          
+const handleDelete = async () => {
+ 
+  const result = await DeleteReview(review._id);
+
+  if (result.success) {
+    toast.success("Review Deleted Successfully");
+    await refetch();
+  }
+};
     const handleUpdate = async (data) => {
         const result = await UpdateReview(
             review._id,
@@ -18,7 +30,7 @@ export default function ReviewCard({ review,refetch}) {
 
         if (result.success) {
             toast.success("Review Updated");
-           refetch();
+            refetch();
         }
     };
     return (
@@ -109,14 +121,45 @@ export default function ReviewCard({ review,refetch}) {
                                 onUpdate={handleUpdate}
                             />
 
-                            <Button
+                            {/* <Button
                                 color="danger"
                                 variant="flat"
                                 className="flex-1 text-red-500"
 
                             >
                                 <Trash2 size={16} />  Delete
-                            </Button>
+                            </Button> */}
+                            <AlertDialog>
+                                <Button variant="flat" className={"text-red-500"}><Trash2 size={16} />Delete</Button>
+                                <AlertDialog.Backdrop>
+                                    <AlertDialog.Container>
+                                        <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                            <AlertDialog.CloseTrigger />
+                                            <AlertDialog.Header>
+                                                <AlertDialog.Icon status="danger" />
+                                                <AlertDialog.Heading>Delete Review permanently?</AlertDialog.Heading>
+                                            </AlertDialog.Header>
+                                            <AlertDialog.Body>
+                                                <p>
+                                                    This will permanently delete <strong>My Awesome Review</strong> and all of its
+                                                    data. This action cannot be undone.
+                                                </p>
+                                            </AlertDialog.Body>
+                                            <AlertDialog.Footer>
+                                                <Button slot="close" variant="tertiary">
+                                                    Cancel
+                                                </Button>
+                                                <Button slot="close" variant="danger"
+                                                  onPress={handleDelete}
+                                                  >
+                                                 
+                                                    Delete  
+                                                </Button>
+                                            </AlertDialog.Footer>
+                                        </AlertDialog.Dialog>
+                                    </AlertDialog.Container>
+                                </AlertDialog.Backdrop>
+                            </AlertDialog>
 
                         </div>
 

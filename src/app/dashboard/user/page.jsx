@@ -29,19 +29,21 @@ const COLORS = ["#ef4444", "#8b5cf6", "#10b981"];
 
 
 const chartData = [
-  { month: "Jan", books: 2 },
-  { month: "Feb", books: 4 },
-  { month: "Mar", books: 6 },
-  { month: "Apr", books: 3 },
+    { month: "Jan", books: 2 },
+    { month: "Feb", books: 4 },
+    { month: "Mar", books: 6 },
+    { month: "Apr", books: 3 },
 ];
 const UserDashboardHomePage = () => {
-     const [overview, setOverview] = useState({
-  totalBooksRead: 0,
-  pendingDeliveries: 0,
-  totalSpent: 0,
-}); 
- const { data: session } = authClient.useSession();
-    
+    const [chartData, setChartData] = useState([]);
+    const [overview, setOverview] = useState({
+        totalBooksRead: 0,
+        pendingDeliveries: 0,
+        totalSpent: 0,
+    });
+
+    const { data: session } = authClient.useSession();
+
 
     const stats = {
         totalEvents: 15,
@@ -50,21 +52,42 @@ const UserDashboardHomePage = () => {
         totalSoldTickets: 780,
     };
 
-   
+
     useEffect(() => {
-  if (!session?.user?.email) return;
+        if (!session?.user?.email) return;
 
-  const loadOverview = async () => {
-    const data = await serverFetch(
-      `/api/user/overview/${session.user.email}`
-    );
+        const loadOverview = async () => {
+            const data = await serverFetch(
+                `/api/user/overview/${session.user.email}`
+            );
 
-    setOverview(data);
-  };
+            setOverview(data);
+        };
 
-  loadOverview();
-}, [session]);
-    
+        loadOverview();
+    }, [session]);
+
+
+    useEffect(() => {
+        if (!session?.user?.email) return;
+
+        const loadChart = async () => {
+            const data = await serverFetch(
+                `/api/user/chart/${session.user.email}`
+            );
+
+            setChartData(data);
+        };
+
+        loadChart();
+    }, [session]);
+
+    const formattedChartData = chartData.map((item) => ({
+        category: item._id,
+        books: item.total,
+    }));
+
+
     return (
         <div>
             <div className="space-y-6 mt-2 mb-10">
@@ -74,7 +97,7 @@ const UserDashboardHomePage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider"> Total Books Read</span>
-                               <h2 className='font-extrabold text-3xl'>{overview.totalBooksRead}</h2>
+                                <h2 className='font-extrabold text-3xl'>{overview.totalBooksRead}</h2>
                             </div>
                             <div className="p-3.5 bg-pink-500/10 text-pink-400 rounded-2xl border border-pink-500/20"><IoMdBook size={24} /></div>
                         </div>
@@ -119,16 +142,20 @@ const UserDashboardHomePage = () => {
                 <div className='mt-10 h-[300px] w-[80%]  rounded-xl  '>
                     <div className='text-2xl font-bold mb-5'>Book Reding Chirts</div>
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={chartData}>
-                            <XAxis dataKey="month" />
+                        <BarChart data={formattedChartData}>
+                            <XAxis dataKey="category" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="books" fill="#6d28d9" />
+                            <Bar
+                                dataKey="books"
+                                fill="#6d28d9"
+                                radius={[8, 8, 0, 0]}
+                            />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
-               
+
             </div>
 
             <div className='mt-10'>

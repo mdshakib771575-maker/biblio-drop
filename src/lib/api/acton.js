@@ -39,3 +39,10 @@ export const RequestBook = async (data) => {
 export const AddReview = async (data) => {
   return await serverMutation("/api/reviews","POST",data);
 };
+
+// user review delete
+export const DeleteReview = async (id) => {
+  return await serverMutation(`/api/reviews/${id}`,
+    "DELETE"
+  );
+};
