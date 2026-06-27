@@ -1,17 +1,54 @@
-import { Card, CardBody, Chip, Button } from "@heroui/react";
+import { Button, Card, Chip, useDisclosure } from "@heroui/react";
 import Image from "next/image";
 import { BookOpen, CalendarDays, User } from "lucide-react";
 
+import { authClient } from "@/lib/auth-client";
+import { AddReview } from "@/lib/api/acton";
+import toast from "react-hot-toast";
+import ReviewModal from "./ReviewModal";
+
+
+
 export default function ReadingBookCard({ book }) {
+  const { data: session } = authClient.useSession();
+
+
+    const handleReview = async (data) => {
+    const reviewData = {
+      bookId: book.bookId,
+      bookTitle: book.bookTitle,
+      bookImage: book.bookImage,
+      bookAuthor: book.bookAuthor,
+      bookCategory: book.bookCategory,
+
+      userName: session.user.name,
+      userEmail: session.user.email,
+
+      rating: data.rating,
+      comment: data.comment,
+    };
+
+    console.log(reviewData)
+
+    const result = await AddReview(reviewData);
+
+    if (result.success) {
+      toast.success("Review Added Successfully");
+    }
+  };
+
+  console.log("book",book)
+  // const redBook = book[0];
   return (
+    <div className="grid lg:grid-cols-3">
     <Card className="shadow-md hover:shadow-xl transition-all duration-300 border border-default-200">
-      <div className="relative h-56 w-full">
+      <div className="relative h-45 w-full">
         <Image
           src={book.bookImage}
           alt={book.bookTitle}
           fill
-          unoptimized
-          className="object-cover rounded-t-xl"
+          // unoptimized
+          className=" rounded-t-xl"
         />
 
         <Chip
@@ -45,14 +82,11 @@ export default function ReadingBookCard({ book }) {
           </span>
         </div>
 
-        <Button
-          color="secondary"
-          variant="flat"
-          fullWidth
-        >
-          Write Review
-        </Button>
+       
+            <ReviewModal onSubmit={handleReview} />
       </div>
     </Card>
+   
+    </div>
   );
 }

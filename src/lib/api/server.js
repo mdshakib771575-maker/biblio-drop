@@ -12,6 +12,7 @@ export const serverMutation = async (path, method, data) => {
   return res.json();
 };
 
+// update
 export const updateStatus = async (id, status) => {
   try {
     const res = await fetch(`/api/deliveries/${id}`, {
@@ -29,7 +30,7 @@ export const updateStatus = async (id, status) => {
     console.log(error);
   }
 };
-
+// get
 export const serverFetch = async (path)=>{
     const res = await fetch(`${baseUrl}${path}`)
     return res.json();

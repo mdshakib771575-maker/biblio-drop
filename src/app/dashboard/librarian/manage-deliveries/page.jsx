@@ -115,13 +115,13 @@ export default function ManageDeliveriesTable() {
           <Table.Body emptyContent={"No deliveries found"}>
             {deliveries.map((delivery) => (
               <Table.Row key={delivery._id}>
-                <Table.Cell>{delivery.client}</Table.Cell>
+                <Table.Cell> <div> <p>{delivery.ownerName}</p><p className="text-sm">{delivery.userEmail}</p></div></Table.Cell>
 
-                <Table.Cell>{delivery.book}</Table.Cell>
+                <Table.Cell>{delivery.bookTitle}</Table.Cell>
 
                 <Table.Cell>
-                  {delivery.date
-                    ? new Date(delivery.date).toLocaleDateString()
+                  {delivery.requestDate
+                    ? new Date(delivery.requestDate).toLocaleDateString()
                     : "N/A"}
                 </Table.Cell>
 

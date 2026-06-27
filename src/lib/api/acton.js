@@ -33,3 +33,9 @@ export const DeleteLibrarianBook = async (id) => {
 export const RequestBook = async (data) => {
   return await serverMutation("/api/deliveries","POST",data);
 };
+
+
+
+export const AddReview = async (data) => {
+  return await serverMutation("/api/reviews","POST",data);
+};
