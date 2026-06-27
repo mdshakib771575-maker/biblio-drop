@@ -35,3 +35,17 @@ export const serverFetch = async (path)=>{
     const res = await fetch(`${baseUrl}${path}`)
     return res.json();
 }
+
+export const UpdateReview = async (id, reviewData) => {
+  const res = await fetch(`${baseUrl}/api/reviews/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
+    }
+  );
+
+  return res.json();
+};

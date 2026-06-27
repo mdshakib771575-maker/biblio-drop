@@ -4,107 +4,126 @@ import { Card, CardBody, Chip, Button } from "@heroui/react";
 import Image from "next/image";
 import { CalendarDays, Pencil, Trash2 } from "lucide-react";
 import { Star } from "lucide-react";
+import EditReviewModal from "./EditReviewModal";
+import { UpdateReview } from "@/lib/api/server";
+import toast from "react-hot-toast";
 
-export default function ReviewCard({ review }) {
-  return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3">
-    <Card className="shadow-md hover:shadow-xl transition-all border border-default-200">
-      <div className="p-0">
 
-        {/* Book Image */}
-        <div className="relative h-52 w-full">
-          <Image
-            src={review.bookImage}
-            alt={review.bookTitle}
-            fill
-            className="object-cover rounded-t-xl"
-          />
+export default function ReviewCard({ review,refetch}) {
+    const handleUpdate = async (data) => {
+        const result = await UpdateReview(
+            review._id,
+            data
+        );
 
-          <Chip
-            color="secondary"
-            variant="flat"
-            className="absolute top-3 right-3"
-          >
-            {review.bookCategory}
-          </Chip>
-        </div>
+        if (result.success) {
+            toast.success("Review Updated");
+           refetch();
+        }
+    };
+    return (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3">
+            <Card className="shadow-md hover:shadow-xl transition-all border border-default-200">
+                <div className="p-0">
 
-        <div className="p-5 space-y-4">
+                    {/* Book Image */}
+                    <div className="relative h-52 w-full">
+                        <Image
+                            src={review.bookImage}
+                            alt={review.bookTitle}
+                            fill
+                            className="object-cover rounded-t-xl"
+                        />
 
-          <div>
-            <h2 className="text-xl font-bold">
-              {review.bookTitle}
-            </h2>
+                        <Chip
+                            color="secondary"
+                            variant="flat"
+                            className="absolute top-3 right-3"
+                        >
+                            {review.bookCategory}
+                        </Chip>
+                    </div>
 
-            <p className="text-default-500">
-              {review.bookAuthor}
-            </p>
-          </div>
+                    <div className="p-5 space-y-4">
 
-          {/* Rating */}
+                        <div>
+                            <h2 className="text-xl font-bold">
+                                {review.bookTitle}
+                            </h2>
 
-          <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                size={18}
-                className={
-                  review.rating >= star
-                    ? "fill-yellow-400 text-yellow-400"
-                    : "text-default-300"
-                }
-              />
-            ))}
+                            <p className="text-default-500">
+                                {review.bookAuthor}
+                            </p>
+                        </div>
 
-            <span className="ml-2 text-sm text-default-500">
-              ({review.rating}/5)
-            </span>
-          </div>
+                        {/* Rating */}
 
-          {/* Comment */}
+                        <div className="flex items-center gap-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <Star
+                                    key={star}
+                                    size={18}
+                                    className={
+                                        review.rating >= star
+                                            ? "fill-yellow-400 text-yellow-400"
+                                            : "text-default-300"
+                                    }
+                                />
+                            ))}
 
-          <p className="text-default-600 leading-7">
-            {review.comment}
-          </p>
+                            <span className="ml-2 text-sm text-default-500">
+                                ({review.rating}/5)
+                            </span>
+                        </div>
 
-          {/* Date */}
+                        {/* Comment */}
 
-          <div className="flex items-center gap-2 text-default-500 text-sm">
-            <CalendarDays size={16} />
+                        <p className="text-default-600 leading-7">
+                            {review.comment}
+                        </p>
 
-            <span>
-              {new Date(review.createdAt).toLocaleDateString()}
-            </span>
-          </div>
+                        {/* Date */}
 
-          {/* Buttons */}
+                        <div className="flex items-center gap-2 text-default-500 text-sm">
+                            <CalendarDays size={16} />
 
-          <div className="flex gap-3 pt-2">
+                            <span>
+                                {new Date(review.createdAt).toLocaleDateString()}
+                            </span>
+                        </div>
 
-            <Button
+                        {/* Buttons */}
+
+                        <div className="flex gap-3 pt-2">
+
+                            {/* <Button
               color="secondary"
               variant="flat"
               className="flex-1"
-              startContent={<Pencil size={16} />}
+             
             >
-              Edit
-            </Button>
+             <Pencil size={16} /> Edit
+            </Button> */}
+                            <EditReviewModal
+                                review={review}
+                                onUpdate={handleUpdate}
+                            />
 
-            <Button
-              color="danger"
-              variant="flat"
-              className="flex-1"
-              startContent={<Trash2 size={16} />}
-            >
-              Delete
-            </Button>
+                            <Button
+                                color="danger"
+                                variant="flat"
+                                className="flex-1 text-red-500"
 
-          </div>
+                            >
+                                <Trash2 size={16} />  Delete
+                            </Button>
 
+                        </div>
+
+                    </div>
+
+                </div>
+            </Card>
         </div>
-
-      </div>
-    </Card>
-    </div>
-  );
+    );
 }
