@@ -1,7 +1,9 @@
 "use client"
 import DashboardHeading from '@/components/DashboardHeading';
+import { serverFetch } from '@/lib/api/server';
+import { authClient } from '@/lib/auth-client';
 import { Button, Card, Chip, Table } from '@heroui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaCalendarAlt, FaCrown, FaDollarSign, FaUsers } from 'react-icons/fa';
 import { IoMdBook } from 'react-icons/io';
@@ -33,6 +35,14 @@ const chartData = [
   { month: "Apr", books: 3 },
 ];
 const UserDashboardHomePage = () => {
+     const [overview, setOverview] = useState({
+  totalBooksRead: 0,
+  pendingDeliveries: 0,
+  totalSpent: 0,
+}); 
+ const { data: session } = authClient.useSession();
+    
+
     const stats = {
         totalEvents: 15,
         totalAttendees: 450,
@@ -40,8 +50,21 @@ const UserDashboardHomePage = () => {
         totalSoldTickets: 780,
     };
 
-    const isPremium = true;
+   
+    useEffect(() => {
+  if (!session?.user?.email) return;
 
+  const loadOverview = async () => {
+    const data = await serverFetch(
+      `/api/user/overview/${session.user.email}`
+    );
+
+    setOverview(data);
+  };
+
+  loadOverview();
+}, [session]);
+    
     return (
         <div>
             <div className="space-y-6 mt-2 mb-10">
@@ -51,7 +74,7 @@ const UserDashboardHomePage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider"> Total Books Read</span>
-                                <h2 className="text-3xl font-extrabold">10</h2>
+                               <h2 className='font-extrabold text-3xl'>{overview.totalBooksRead}</h2>
                             </div>
                             <div className="p-3.5 bg-pink-500/10 text-pink-400 rounded-2xl border border-pink-500/20"><IoMdBook size={24} /></div>
                         </div>
@@ -60,7 +83,7 @@ const UserDashboardHomePage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">  Pending Deliveries</span>
-                                <h2 className="text-3xl font-extrabold text-white">{stats.totalAttendees}</h2>
+                                <h2 className="text-3xl font-extrabold ">{overview.pendingDeliveries}</h2>
                             </div>
                             <div className="p-3.5 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20"><CiDeliveryTruck size={24} /></div>
                         </div>
@@ -69,7 +92,7 @@ const UserDashboardHomePage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">  Total Fees Spent</span>
-                                <h2 className="text-3xl font-extrabold text-white">{`$${stats.totalRevenue.toFixed(2)}`}</h2>
+                                <h2 className="text-3xl font-extrabold">{`$100`}</h2>
                             </div>
                             <div className="p-3.5 bg-green-500/10 text-green-400 rounded-2xl border border-green-500/20"><FaDollarSign size={24} /></div>
                         </div>

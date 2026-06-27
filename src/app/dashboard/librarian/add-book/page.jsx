@@ -24,6 +24,7 @@ import { uploadImage } from "@/utils/UploadImage";
 import { AddBook } from "@/lib/api/acton";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const categories = [
     "Fiction",
@@ -45,7 +46,7 @@ export default function AddBookForm() {
     // const [image, setImage] = useState(null);
 
     const { data: session } = authClient.useSession();
-    console.log(session.user)
+  
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
@@ -73,6 +74,7 @@ export default function AddBookForm() {
             console.log(resData)
             if (resData.insertedId) {
                 toast.success("Book Added")
+                // redirect("/dashboard/librarian/manage-inventory")
             }
             // await axios.post("/api/books", bookData)
 

@@ -1,7 +1,9 @@
 "use client"
 import DashboardHeading from '@/components/DashboardHeading';
+import { serverFetch } from '@/lib/api/server';
+import { authClient } from '@/lib/auth-client';
 import { Button, Card, Chip, Table } from '@heroui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaCrown, FaDollarSign, FaUsers } from 'react-icons/fa';
 import {
     BarChart,
@@ -34,6 +36,56 @@ const data = [
 ];
 
 const LibrarianDashboardHomePage = () => {
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+    const [overview, setOverview] = useState({ totalBooks: 0, });
+    const [chartData, setChartData] = useState([]);
+    // tolal books and barchat
+//     useEffect(() => {
+//   if (!session?.user?.email) return;
+
+//   const loadDashboardData = async () => {
+//     const [overviewData, chartData] = await Promise.all([
+//       serverFetch(`/api/librarian/overview/${session.user.email}`),
+//       serverFetch(`/api/librarian/chart/${session.user.email}`),
+//     ]);
+
+//     setOverview(overviewData);
+//     setChartData(chartData);
+//   };
+
+//   loadDashboardData();
+// }, [session]);
+
+    // total books
+    useEffect(() => {
+        if (!session?.user?.email) return;
+
+        const loadOverview = async () => {
+            const data = await serverFetch(`/api/librarian/overview/${session.user.email}`
+            );
+            setOverview(data);
+        };
+
+        loadOverview();
+    }, [session]);
+// barchart
+    useEffect(() => {
+        if (!session?.user?.email) return;
+
+        const loadChartData = async () => {
+            const data = await serverFetch(
+                `/api/librarian/chart/${session.user.email}`
+            );
+
+            setChartData(data);
+        };
+
+        loadChartData();
+    }, [session]);
+
+
+
     const stats = {
         totalEvents: 15,
         totalAttendees: 450,
@@ -51,7 +103,7 @@ const LibrarianDashboardHomePage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Books Listed</span>
-                                <h2 className="text-3xl font-extrabold">10</h2>
+                                <h2 className="text-3xl font-extrabold"> {overview.totalBooks}</h2>
                             </div>
                             <div className="p-3.5 bg-pink-500/10 text-pink-400 rounded-2xl border border-pink-500/20"><FaCalendarAlt size={24} /></div>
                         </div>
@@ -77,24 +129,24 @@ const LibrarianDashboardHomePage = () => {
                 </div>
             </div>
 
-      {/* Rechart */}
+            {/* barchart */}
             <div className='lg:flex items-center gap-5 mb-12'>
                 <div className='mt-10 h-[300px] w-[100%] shadow-xl rounded-xl'>
                     <ResponsiveContainer width="100%" height={300}>
-                        <BarChart data={data}>
-                            <XAxis dataKey="month" />
+                        <BarChart data={chartData}>
+                            <XAxis dataKey="_id" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="earnings" fill="#6d28d9" />
+                            <Bar dataKey="total" fill="#6d28d9" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
 
                 <div className="h-[340px] w-full shadow-xl rounded-xl">
-                  {/* pai Chart */}
+                    {/* pai Chart */}
                     <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                              <Pie
+                        <PieChart>
+                            <Pie
                                 data={Paidata}
                                 cx="50%"
                                 cy="50%"
@@ -103,22 +155,22 @@ const LibrarianDashboardHomePage = () => {
                                 dataKey="value"
                                 nameKey="name"
                                 label
-                              >
+                            >
                                 {Paidata.map((entry, index) => (
-                                  <Cell
-                                    key={`cell-${index}`}
-                                    fill={COLORS[index % COLORS.length]}
-                                  />
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={COLORS[index % COLORS.length]}
+                                    />
                                 ))}
-                              </Pie>
-                    
-                              <Tooltip />
-                              <Legend />
-                            </PieChart>
-                          </ResponsiveContainer>
+                            </Pie>
+
+                            <Tooltip />
+                            <Legend />
+                        </PieChart>
+                    </ResponsiveContainer>
                 </div>
             </div>
-            
+
 
             <div className='mt-10'>
                 <Table>
@@ -133,11 +185,11 @@ const LibrarianDashboardHomePage = () => {
                                     Role
                                     <Table.ColumnResizer />
                                 </Table.Column>
-                               
+
                                 <Table.Column defaultWidth="1fr" id="email" minWidth={200}>
                                     Email
                                 </Table.Column>
-                                 <Table.Column defaultWidth="1fr" id="status" minWidth={100}>
+                                <Table.Column defaultWidth="1fr" id="status" minWidth={100}>
                                     Status
                                     <Table.ColumnResizer />
                                 </Table.Column>

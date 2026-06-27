@@ -1,87 +1,82 @@
+"use client"
 import DashboardHeading from '@/components/DashboardHeading';
+import { serverFetch } from '@/lib/api/server';
+import { authClient } from '@/lib/auth-client';
 import { Chip, Table } from '@heroui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const DeliveryHistory = () => {
+    const [history, setHistory] = useState([]);
+    const { data: session } = authClient.useSession();
+
+    useEffect(() => {
+        if (!session?.user?.email) return;
+
+        const loadHistory = async () => {
+            const data = await serverFetch(
+                `/api/user/history/${session.user.email}`
+            );
+
+            setHistory(data);
+        };
+
+        loadHistory();
+    }, [session]);
     return (
         <div>
             <DashboardHeading title={"DeliveryHistory"} description={"Dashboard User DeliveryHistory"}></DashboardHeading>
-              <Table>
-                    <Table.ResizableContainer>
-                        <Table.Content aria-label="Table with resizable columns" className="min-w-[900px]">
-                            <Table.Header>
-                                <Table.Column isRowHeader defaultWidth="1fr" id="name" minWidth={160}>
-                                    Book Title
-                                    <Table.ColumnResizer />
-                                </Table.Column>
-                                <Table.Column defaultWidth="1fr" id="role" minWidth={220}>
-                                   Delivery Fee
-                                    <Table.ColumnResizer />
-                                </Table.Column>
-                               
-                                <Table.Column defaultWidth="1fr" id="email" minWidth={200}>
-                                    Date
-                                </Table.Column>
-                                 <Table.Column defaultWidth="1fr" id="status" minWidth={100}>
-                                    Status
-                                    <Table.ColumnResizer />
-                                </Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell>Kate Moore</Table.Cell>
-                                    <Table.Cell>CEO</Table.Cell>
-                                    <Table.Cell>kate@acme.com</Table.Cell>
+            <Table>
+                <Table.ResizableContainer>
+                    <Table.Content aria-label="Table with resizable columns" className="min-w-[900px]">
+                        <Table.Header>
+                            <Table.Column isRowHeader defaultWidth="1fr" id="name" minWidth={160}>
+                                Book Title
+                                <Table.ColumnResizer />
+                            </Table.Column>
+                            <Table.Column defaultWidth="1fr" id="role" minWidth={220}>
+                                Delivery Fee
+                                <Table.ColumnResizer />
+                            </Table.Column>
+
+                            <Table.Column defaultWidth="1fr" id="email" minWidth={200}>
+                                Date
+                            </Table.Column>
+                            <Table.Column defaultWidth="1fr" id="status" minWidth={100}>
+                                Status
+                                <Table.ColumnResizer />
+                            </Table.Column>
+                        </Table.Header>
+                        <Table.Body emptyContent={"No History Found"}>
+                            {history.map((item) => (
+                                <Table.Row key={item._id}>
+                                    <Table.Cell>{item.bookTitle}</Table.Cell>
+
+                                    <Table.Cell>${item.deliveryFee}</Table.Cell>
+
                                     <Table.Cell>
-                                        <Chip color="success" size="sm" variant="soft">
-                                            Active
+                                        {new Date(item.requestDate).toLocaleDateString()}
+                                    </Table.Cell>
+
+                                    <Table.Cell>
+                                        <Chip
+                                            color={
+                                                item.status === "Pending"
+                                                    ? "warning"
+                                                    : item.status === "Dispatched"
+                                                        ? "primary"
+                                                        : "success"
+                                            }
+                                            variant="flat"
+                                        >
+                                            {item.status}
                                         </Chip>
                                     </Table.Cell>
                                 </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>John Smith</Table.Cell>
-                                    <Table.Cell>CTO</Table.Cell>
-                                    <Table.Cell>john@acme.com</Table.Cell>
-                                    <Table.Cell>
-                                        <Chip color="success" size="sm" variant="soft">
-                                            Active
-                                        </Chip>
-                                    </Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>Sara Johnson</Table.Cell>
-                                    <Table.Cell>CMO</Table.Cell>
-                                    <Table.Cell>sara@acme.com</Table.Cell>
-                                    <Table.Cell>
-                                        <Chip color="warning" size="sm" variant="soft">
-                                            On Leave
-                                        </Chip>
-                                    </Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>Michael Brown</Table.Cell>
-                                    <Table.Cell>CFO</Table.Cell>
-                                    <Table.Cell>michael@acme.com</Table.Cell>
-                                    <Table.Cell>
-                                        <Chip color="success" size="sm" variant="soft">
-                                            Active
-                                        </Chip>
-                                    </Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell>Emily Davis</Table.Cell>
-                                    <Table.Cell>Product Manager</Table.Cell>
-                                    <Table.Cell>emily@acme.com</Table.Cell>
-                                    <Table.Cell>
-                                        <Chip color="danger" size="sm" variant="soft">
-                                            Inactive
-                                        </Chip>
-                                    </Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table.Content>
-                    </Table.ResizableContainer>
-                </Table>
+                            ))}
+                        </Table.Body>
+                    </Table.Content>
+                </Table.ResizableContainer>
+            </Table>
         </div>
     );
 };

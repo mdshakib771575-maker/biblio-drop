@@ -29,3 +29,7 @@ export const DeleteLibrarianBook = async (id) => {
 
   return resData;
 };
+// user
+export const RequestBook = async (data) => {
+  return await serverMutation("/api/deliveries","POST",data);
+};
