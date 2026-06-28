@@ -13,9 +13,11 @@ import {
   ListBox,
   Select,
   TextField,
+  Separator,
 } from "@heroui/react";
 import { redirect } from "next/navigation";
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignInPage() {
   const onSubmit = async (e) => {
@@ -29,8 +31,15 @@ export default function SignInPage() {
     });
   };
 
+    const handalGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google"
+        })
+
+    }
+
   return (
-    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-sm mx-auto border mt-5">
+    <div className="flex items-center justify-center rounded-3xl bg-surface p-6 max-w-md mx-auto border mt-5">
       <Surface className="w-full">
         <Form onSubmit={onSubmit}>
           <Fieldset className="w-full">
@@ -57,6 +66,15 @@ export default function SignInPage() {
               Signin
             </Button>
           </Fieldset>
+           <div className='flex justify-between items-center w-30 gap-3 my-4'>
+                    <Separator></Separator>
+                    <p className='whitespace-nowrap '>Or sign up with</p>
+                    <Separator></Separator>
+
+                </div>
+                <div>
+                    <Button onClick={handalGoogleSignIn} variant='outline' className="w-full rounded-sm hover:scale-105 transition duration-300"><FcGoogle /> Sign in with Google</Button>
+                </div>
         </Form>
       </Surface>
     </div>
