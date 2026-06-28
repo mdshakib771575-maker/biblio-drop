@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { Button } from "@heroui/react";
 import { SearchX } from "lucide-react";
@@ -26,21 +27,15 @@ export default function NotFound() {
         </p>
 
         <div className="flex justify-center gap-4 mt-8">
+            <Link href={"/"}>
           <Button
-            as={Link}
-            href="/"
             color="secondary"
           >
             Go Home
           </Button>
+          </Link>
 
-          <Button
-            as={Link}
-            href="/books"
-            variant="bordered"
-          >
-            Browse Books
-          </Button>
+        
         </div>
 
       </div>
