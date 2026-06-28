@@ -58,3 +58,18 @@ export const DeleteUser = async (id) => {
     "DELETE"
   );
 };
+
+// admin manage all books status update btn route
+export const UpdateBookStatus = async (id, isPublished) => {
+  return await serverMutation(`/api/admin/books/status/${id}`,
+    "PATCH",
+    { isPublished }
+  );
+};
+
+// admin manage all books delete btn route
+export const DeleteBook = async (id) => {
+  return await serverMutation(`/api/admin/books/${id}`,
+    "DELETE"
+  );
+};

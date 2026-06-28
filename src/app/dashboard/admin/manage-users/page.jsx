@@ -137,7 +137,7 @@ const ManageUsers = () => {
                         <Button
                           size="sm"
                           color="secondary"
-                          variant="flat"
+                          variant="outline"
                           onPress={() =>
                             handleRole(user._id, "librarian")
                           }
@@ -150,7 +150,7 @@ const ManageUsers = () => {
                         <Button
                           size="sm"
                           color="primary"
-                          variant="flat"
+                          variant="outline"
                           onPress={() =>
                             handleRole(user._id, "admin")
                           }
@@ -171,7 +171,7 @@ const ManageUsers = () => {
 
 
                         <AlertDialog>
-                          <Button variant="flat" className={"text-red-500"}>Delete</Button>
+                          <Button variant="outline" className={"text-red-500"}>Delete</Button>
                           <AlertDialog.Backdrop>
                             <AlertDialog.Container>
                               <AlertDialog.Dialog className="sm:max-w-[400px]">

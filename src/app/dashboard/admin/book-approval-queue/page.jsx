@@ -58,14 +58,14 @@ const BookApprovalQueue = () => {
         <Table.ResizableContainer>
           <Table.Content
             aria-label="Book Approval Queue"
-            className="min-w-[1100px] "
+            className="min-w-[800px] "
           >
-            <Table.Header>
+            {/* <Table.Header>
               <Table.Column
                 isRowHeader
              
                 id="title"
-                minWidth={140}
+                minWidth={100}
               >
                 Book Title
                 <Table.ColumnResizer />
@@ -74,38 +74,84 @@ const BookApprovalQueue = () => {
               <Table.Column
                
                 id="author"
-                minWidth={140}
+                minWidth={100}
               >
                 Author
                 <Table.ColumnResizer />
               </Table.Column>
 
               <Table.Column
-                defaultWidth="1fr"
+                
                 id="owner"
-                minWidth={140}
+                minWidth={100}
               >
                 Librarian
                 <Table.ColumnResizer />
               </Table.Column>
 
               <Table.Column
-                defaultWidth="1fr"
+              
                 id="status"
-                minWidth={150}
+                minWidth={100}
               >
                 Status
                 <Table.ColumnResizer />
               </Table.Column>
 
               <Table.Column
-                defaultWidth="1fr"
+               
                 id="action"
-                minWidth={200}
+                minWidth={100}
               >
                 Actions
               </Table.Column>
-            </Table.Header>
+            </Table.Header> */}
+            <Table.Header>
+                          <Table.Column
+                            isRowHeader
+                            id="name"
+                            defaultWidth="1fr"
+                            minWidth={130}
+                          >
+                            Book Title
+                            <Table.ColumnResizer />
+                          </Table.Column>
+            
+                          <Table.Column
+                            id="email"
+                            defaultWidth="1.5fr"
+                            minWidth={150}
+                          >
+                            Author
+                            <Table.ColumnResizer />
+                          </Table.Column>
+            
+                          <Table.Column
+                            id="role"
+                            defaultWidth="1fr"
+                            minWidth={120}
+                          >
+                            Librarian
+                            <Table.ColumnResizer />
+                          </Table.Column>
+            
+                          <Table.Column
+                            id="status"
+                            defaultWidth="1fr"
+                            minWidth={150}
+                          >
+                            Status
+                            <Table.ColumnResizer />
+                          </Table.Column>
+            
+                          <Table.Column
+                            id="actions"
+                            defaultWidth="1.5fr"
+                            minWidth={480}
+                          >
+                            Actions
+                          </Table.Column>
+                        </Table.Header>
 
        <Table.Body>
   {books.length === 0 ? (
@@ -146,6 +192,7 @@ const BookApprovalQueue = () => {
               color="danger"
               size="sm"
               variant="outline"
+              className={"text-red-500"}
               onPress={() => handleDelete(book._id)}
             >
               Delete
