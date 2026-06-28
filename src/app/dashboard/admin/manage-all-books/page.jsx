@@ -3,6 +3,7 @@ import { Button, Chip, Table } from '@heroui/react';
 import React from 'react';
 
 const ManageAllBooksPage = () => {
+    
     return (
         <div>
             <DashboardHeading title={"Manage All Books"} description={"   Manage all books across the platform."}></DashboardHeading>

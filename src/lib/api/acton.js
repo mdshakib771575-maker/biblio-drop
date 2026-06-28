@@ -16,11 +16,7 @@ export const UpdateLibrarianBook = async (id, data) => {
     data
   );
 };
-// export const DeleteLibrariaBook = async (data,id)=>{
-//     const resData = await serverMutation(`/api/books/${id}`,"DELETE",data);
-    
-//     return resData; 
-// }
+
 
 export const DeleteLibrarianBook = async (id) => {
   const resData = await serverMutation(`/api/books/${id}`,
@@ -43,6 +39,22 @@ export const AddReview = async (data) => {
 // user review delete
 export const DeleteReview = async (id) => {
   return await serverMutation(`/api/reviews/${id}`,
+    "DELETE"
+  );
+};
+
+// admin manageUser  Update role btn route
+export const UpdateUserRole = async (id, role) => {
+  return await serverMutation(`/api/users/${id}`,
+    "PATCH",
+    { role }
+  );
+};
+
+// admin manageUser  Delete role btn route
+export const DeleteUser = async (id) => {
+  return await serverMutation(
+    `/api/users/${id}`,
     "DELETE"
   );
 };

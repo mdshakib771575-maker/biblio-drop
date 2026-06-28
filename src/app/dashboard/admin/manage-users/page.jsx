@@ -1,172 +1,223 @@
 "use client"
 import DashboardHeading from '@/components/DashboardHeading';
-import { Button, Chip, Table } from '@heroui/react';
-import React from 'react';
+import { DeleteUser, UpdateUserRole } from '@/lib/api/acton';
+import { GetUsers } from '@/lib/api/data';
+import { AlertDialog, Button, Chip, Table } from '@heroui/react';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const ManageUsers = () => {
-    return (
-        <div>
-          <DashboardHeading title={" Manage Users"} description={" Manage user roles and permissions across the platform."}></DashboardHeading>
-            <Table>
-  <Table.ResizableContainer>
-    <Table.Content
-      aria-label="Manage Users Table"
-      className="min-w-[900px]"
-    >
-      <Table.Header>
-        <Table.Column
-          isRowHeader
-          id="name"
-          defaultWidth="1fr"
-          minWidth={140}
-        >
-          Name
-          <Table.ColumnResizer />
-        </Table.Column>
 
-        <Table.Column
-          id="email"
-          defaultWidth="1.5fr"
-          minWidth={150}
-        >
-          Email
-          <Table.ColumnResizer />
-        </Table.Column>
+  const [users, setUsers] = useState([]);
 
-        <Table.Column
-          id="role"
-          defaultWidth="1fr"
-          minWidth={100}
-        >
-          Role
-          <Table.ColumnResizer />
-        </Table.Column>
+  const loadUsers = async () => {
+    const data = await GetUsers();
+    setUsers(data);
+  };
 
-        <Table.Column
-          id="status"
-          defaultWidth="1fr"
-          minWidth={100}
-        >
-          Status
-          <Table.ColumnResizer />
-        </Table.Column>
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
-        <Table.Column
-          id="actions"
-          defaultWidth="1.5fr"
-          minWidth={480}
-        >
-          Actions
-        </Table.Column>
-      </Table.Header>
+  const handleRole = async (id, role) => {
+    const result = await UpdateUserRole(id, role);
 
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>Shakib Hazari</Table.Cell>
-          <Table.Cell>shakib@gmail.com</Table.Cell>
-          <Table.Cell>
-            <Chip color="primary" size="sm" variant="soft">
-              User
-            </Chip>
-          </Table.Cell>
-            <Table.Cell>
-              <Chip color="success" size="sm" variant="soft">
-                Active
-              </Chip>
-            </Table.Cell>
-          <Table.Cell>
-            <div className="flex gap-2">
-              <Button
-                size="sm"
-                color="secondary"
-                variant="flat"
+    if (result.success) {
+      toast.success("Role Updated Successfully");
+      await loadUsers();
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const result = await DeleteUser(id);
+
+    if (result.success) {
+      toast.success("User Deleted Successfully");
+      await loadUsers();
+    }
+  };
+
+  console.log(users)
+
+  return (
+    <div>
+      <DashboardHeading title={" Manage Users"} description={"Manage user roles and permissions across the platform."}>
+      </DashboardHeading>
+
+      <Table>
+        <Table.ResizableContainer>
+          <Table.Content
+            aria-label="Manage Users Table"
+            className="min-w-[800px]"
+          >
+            <Table.Header>
+              <Table.Column
+                isRowHeader
+                id="name"
+                defaultWidth="1fr"
+                minWidth={160}
               >
-                Make Librarian
-              </Button>
+                Name
+                <Table.ColumnResizer />
+              </Table.Column>
 
-              <Button
-                size="sm"
-                color="primary"
-                variant="flat"
+              <Table.Column
+                id="email"
+                defaultWidth="1.5fr"
+                minWidth={180}
               >
-                Make Admin
-              </Button>
+                Email
+                <Table.ColumnResizer />
+              </Table.Column>
 
-              <Button
-                size="sm"
-                color="danger"
-                variant="flat"
+              <Table.Column
+                id="role"
+                defaultWidth="1fr"
+                minWidth={120}
               >
-                Delete
-              </Button>
-            </div>
-          </Table.Cell>
-        </Table.Row>
+                Role
+                <Table.ColumnResizer />
+              </Table.Column>
 
-        <Table.Row>
-          <Table.Cell>Rahim Ahmed</Table.Cell>
-          <Table.Cell>rahim@gmail.com</Table.Cell>
-          <Table.Cell>
-            <Chip color="warning" size="sm" variant="soft">
-              Librarian
-            </Chip>
-          </Table.Cell>
-          <Table.Cell>
-            <Chip color="success" size="sm" variant="soft">
-              Active
-            </Chip>
-          </Table.Cell>
-          <Table.Cell>
-            <div className="flex gap-2">
-              <Button
-                size="sm"
-                color="primary"
-                variant="flat"
+              <Table.Column
+                id="status"
+                defaultWidth="1fr"
+                minWidth={100}
               >
-                Make Admin
-              </Button>
+                Status
+                <Table.ColumnResizer />
+              </Table.Column>
 
-              <Button
-                size="sm"
-                color="danger"
-                variant="flat"
+              <Table.Column
+                id="actions"
+                defaultWidth="1.5fr"
+                minWidth={480}
               >
-                Delete
-              </Button>
-            </div>
-          </Table.Cell>
-        </Table.Row>
+                Actions
+              </Table.Column>
+            </Table.Header>
 
-        <Table.Row>
-          <Table.Cell>Admin User</Table.Cell>
-          <Table.Cell>admin@gmail.com</Table.Cell>
-          <Table.Cell>
-            <Chip color="danger" size="sm" variant="soft">
-              Admin
-            </Chip>
-          </Table.Cell>
-          <Table.Cell>
-            <Chip color="success" size="sm" variant="soft">
-              Active
-            </Chip>
-          </Table.Cell>
-          <Table.Cell>
-            <Button
-              size="sm"
-              color="default"
-              variant="flat"
-              isDisabled
-            >
-              Protected
-            </Button>
-          </Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table.Content>
-  </Table.ResizableContainer>
-</Table>
-        </div>
-    );
+            <Table.Body>
+              {users.map((user) => (
+                <Table.Row key={user._id}>
+                  <Table.Cell>{user.name}</Table.Cell>
+
+                  <Table.Cell>{user.email}</Table.Cell>
+
+                  <Table.Cell>
+                    <Chip
+                      size="sm"
+                      variant="soft"
+                      color={
+                        user.role === "admin"
+                          ? "danger"
+                          : user.role === "librarian"
+                            ? "warning"
+                            : "primary"
+                      }
+                    >
+                      {user.role}
+                    </Chip>
+                  </Table.Cell>
+
+                  <Table.Cell>
+                    <Chip
+                      color="success"
+                      size="sm"
+                      variant="soft"
+                    >
+                      Active
+                    </Chip>
+                  </Table.Cell>
+
+                  <Table.Cell>
+                    <div className="flex gap-2">
+
+                      {user.role === "user" && (
+                        <Button
+                          size="sm"
+                          color="secondary"
+                          variant="flat"
+                          onPress={() =>
+                            handleRole(user._id, "librarian")
+                          }
+                        >
+                          Make Librarian
+                        </Button>
+                      )}
+
+                      {user.role === "librarian" && (
+                        <Button
+                          size="sm"
+                          color="primary"
+                          variant="flat"
+                          onPress={() =>
+                            handleRole(user._id, "admin")
+                          }
+                        >
+                          Make Admin
+                        </Button>
+                      )}
+
+                      {user.role === "admin" ? (
+                        <Button
+                          size="sm"
+                          variant="flat"
+                          isDisabled
+                        >
+                          Protected
+                        </Button>
+                      ) : (
+
+
+                        <AlertDialog>
+                          <Button variant="flat" className={"text-red-500"}>Delete</Button>
+                          <AlertDialog.Backdrop>
+                            <AlertDialog.Container>
+                              <AlertDialog.Dialog className="sm:max-w-[400px]">
+                                <AlertDialog.CloseTrigger />
+                                <AlertDialog.Header>
+                                  <AlertDialog.Icon status="danger" />
+                                  <AlertDialog.Heading>Delete {user.role} permanently?</AlertDialog.Heading>
+                                </AlertDialog.Header>
+                                <AlertDialog.Body>
+                                  <p>
+                                    This will permanently delete <strong>{user.role}</strong> and all of its
+                                    data. This action cannot be undone.
+                                  </p>
+                                </AlertDialog.Body>
+                                <AlertDialog.Footer>
+                                  <Button slot="close" variant="tertiary">
+                                    Cancel
+                                  </Button>
+                                  
+                                  <Button
+                                    size="sm"
+                                    color="danger"
+                                    
+                                   variant="danger"
+                                    onPress={() => handleDelete(user._id)}
+                                  >
+                                    Delete {user.role}
+                                  </Button>
+
+                                </AlertDialog.Footer>
+                              </AlertDialog.Dialog>
+                            </AlertDialog.Container>
+                          </AlertDialog.Backdrop>
+                        </AlertDialog>
+                      )}
+
+                    </div>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Content>
+        </Table.ResizableContainer>
+      </Table>
+    </div>
+  );
 };
 
 export default ManageUsers;
