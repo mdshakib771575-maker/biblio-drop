@@ -18,7 +18,7 @@
     user: {
       additionalFields: {
         role: {
-          defaultValue: "buyer",
+          defaultValue: "user",
         },
         plan: {
           defaultValue: "free",

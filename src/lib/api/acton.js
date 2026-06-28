@@ -1,42 +1,40 @@
 "use server"
 
 import { serverMutation } from "./server";
-
-
+// librarian add book route
 export const AddBook = async (data)=>{
-    console.log("data",data)
-    const resData = await serverMutation("/api/books","POST",data);
+    const resData = await serverMutation("/api/librarian/books","POST",data);
     
     return resData; 
 }
-
+// librarian Update btn route
 export const UpdateLibrarianBook = async (id, data) => {
-  return await serverMutation(`/api/books/${id}`,
+  return await serverMutation(`/api/librarian/books/${id}`,
     "PATCH",
     data
   );
 };
 
-
+// Librarian Delete book btn route
 export const DeleteLibrarianBook = async (id) => {
-  const resData = await serverMutation(`/api/books/${id}`,
+  const resData = await serverMutation(`/api/librarian/books/${id}`,
     "DELETE"
   );
-
   return resData;
 };
-// user
+
+//  
 export const RequestBook = async (data) => {
   return await serverMutation("/api/deliveries","POST",data);
 };
 
 
-
+// User AddReview route
 export const AddReview = async (data) => {
   return await serverMutation("/api/reviews","POST",data);
 };
 
-// user review delete
+// user review delete btn route
 export const DeleteReview = async (id) => {
   return await serverMutation(`/api/reviews/${id}`,
     "DELETE"

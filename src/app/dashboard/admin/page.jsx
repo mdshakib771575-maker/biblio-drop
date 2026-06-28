@@ -1,11 +1,16 @@
 "use client"
 import DashboardHeading from '@/components/DashboardHeading';
+import { GetAllAdminBooks, GetTotalDeliveries, GetTotalUsers } from '@/lib/api/data';
 import { Card } from '@heroui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaDollarSign, FaUsers } from 'react-icons/fa';
+import { MdElectricCar } from 'react-icons/md';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const AdminDashboardPage = () => {
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [ books, setBooks] = useState([]);
+    const [totalDeliveries, setTotalDeliveries] = useState(0);
      const stats = {
         totalEvents: 15,
         totalAttendees: 450,
@@ -13,11 +18,11 @@ const AdminDashboardPage = () => {
         totalSoldTickets: 780,
     };
     const data = [
-    { name: "Fiction", value: 35 },
-    { name: "Academic", value: 25 },
-    { name: "Sci-Fi", value: 18 },
-    { name: "History", value: 12 },
-    { name: "Novel", value: 10 },
+    { name: "Fiction", value: 4 },
+    { name: "Academic", value: 2 },
+    { name: "Sci-Fi", value: 1 },
+    { name: "History", value: 2 },
+    { name: "Novel", value: 1 },
   ];
   const COLORS = [
   "#3B82F6", // Blue
@@ -26,6 +31,37 @@ const AdminDashboardPage = () => {
   "#EF4444", // Red
   "#8B5CF6", // Violet
 ];
+
+
+useEffect(() => {
+  const loadTotalDeliveries = async () => {
+     const data = await GetTotalDeliveries();
+  setTotalDeliveries(data.totalDeliveries);
+  };
+  loadTotalDeliveries();
+}, []);
+ 
+
+
+
+    useEffect(() => {
+  const loadBooks = async () => {
+     const data = await GetAllAdminBooks();
+        setBooks(data);
+  };
+  loadBooks();
+}, []);
+
+
+
+useEffect(() => {
+  const loadTotalUsers = async () => {
+    const data = await GetTotalUsers();
+    setTotalUsers(data.totalUsers);
+  };
+
+  loadTotalUsers();
+}, []);
 
     return (
         <>
@@ -37,7 +73,7 @@ const AdminDashboardPage = () => {
                         <div className="p-6 flex flex-row items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider"> Total Books</span>
-                                <h2 className="text-3xl font-extrabold">10</h2>
+                                <h2 className="text-3xl font-extrabold">{books.length}</h2>
                             </div>
                             <div className="p-3.5 bg-pink-500/10 text-pink-400 rounded-2xl border border-pink-500/20"><FaCalendarAlt size={24} /></div>
                         </div>
@@ -47,7 +83,7 @@ const AdminDashboardPage = () => {
                         <div className="p-6 flex flex-row  items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Users</span>
-                                <h2 className="text-3xl font-extrabold text-white">{stats.totalAttendees}</h2>
+                                <h2 className="text-3xl font-extrabold ">{totalUsers}</h2>
                             </div>
                             <div className="p-3.5 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20"><FaUsers size={24} /></div>
                         </div>
@@ -57,9 +93,9 @@ const AdminDashboardPage = () => {
                         <div className="p-6 flex flex-row gap-3 items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Deliveries</span>
-                                <h2 className="text-3xl font-extrabold text-white">{stats.totalAttendees}</h2>
+                                <h2 className="text-3xl font-extrabold ">{totalDeliveries}</h2>
                             </div>
-                            <div className="p-3.5 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20"><FaUsers size={24} /></div>
+                            <div className="p-3.5 bg-indigo-500/10 text-indigo-400 rounded-2xl border border-indigo-500/20"><MdElectricCar size={24} /></div>
                         </div>
                     </Card>
 
@@ -67,7 +103,7 @@ const AdminDashboardPage = () => {
                         <div className="p-6 flex flex-row gap-5 items-center justify-between">
                             <div className="space-y-1">
                                 <span className="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Revenew</span>
-                                <h2 className="text-3xl font-extrabold text-white">{stats.totalAttendees}</h2>
+                                <h2 className="text-2xl font-extrabold ">${stats.totalAttendees}</h2>
                             </div>
                             <div className="p-3.5 bg-green-500/10 text-green-400 rounded-2xl border border-green-500/20"><FaDollarSign size={24} /></div>
                         </div>
