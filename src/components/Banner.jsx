@@ -92,7 +92,7 @@ export default function Banner() {
   };
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden ">
       {/* Left Arrow */}
       <button
         onClick={prev}
@@ -111,7 +111,7 @@ export default function Banner() {
         <ChevronRight size={22} />
       </button>
 
-      <div className="max-w-7xl mx-auto px-14 lg:px-16 py-16">
+      <div className="max-w-7xl mx-auto px-14 lg:px-8 py-5 ">
         <div className="grid lg:grid-cols-2 gap-5 items-center" style={slideStyle}>
 
           {/* Left Content */}

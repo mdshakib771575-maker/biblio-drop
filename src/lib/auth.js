@@ -15,6 +15,7 @@
     emailAndPassword: {
       enabled: true,
     },
+   
     
       socialProviders: {
     google: {
