@@ -1,36 +1,206 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 BiblioDrop – Online Book Delivery Management System
 
-## Getting Started
+BiblioDrop is a modern full-stack online book delivery platform that connects readers with local libraries and independent book providers. Users can browse books, request doorstep delivery, pay delivery fees securely through Stripe, track deliveries, and leave verified reviews. Librarians can manage books and delivery requests, while administrators oversee the entire platform.
 
-First, run the development server:
+---
+
+## 🌐 Live Website
+
+**Live Site:** https://biblio-drop-client-two.vercel.app
+
+**Backend API:** https://biblio-drop-server-ten.vercel.app
+
+---
+
+## 🔗 GitHub Repository
+
+### Client Repository
+https://github.com/your-username/biblio-drop
+
+### Server Repository
+https://github.com/your-username/biblio-drop-server
+
+---
+
+## ✨ Key Features
+
+- 🔐 Better Auth Authentication (Email & Google Login)
+- 👥 Role-Based Access (User, Librarian & Admin)
+- 📚 Browse, Search, Filter & Paginate Books
+- 💳 Stripe Payment Integration for Book Delivery
+- 🚚 Delivery Status Tracking
+- ⭐ Verified Review System
+- 📊 Analytics Dashboard with Recharts
+- 📖 Librarian Inventory Management
+- 🛡️ Admin Management Panel
+- 🖼️ Image Upload using ImgBB
+- 🎬 Framer Motion Animations
+- 🌙 Responsive Modern UI
+- 🍪 JWT Authentication with Secure Cookies
+- ⚡ Skeleton Loading & Global Loading Spinner
+- 🚫 Custom 404 & Error Boundary
+- 🔔 Toast Notifications
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- Next.js 15
+- React 19
+- Tailwind CSS
+- HeroUI
+- Better Auth
+- React Hook Form
+- Axios
+- Framer Motion
+- Recharts
+- Lucide React
+- React Icons
+- Sonner
+- SweetAlert2
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- JWT
+- Stripe
+- Cookie Parser
+- CORS
+- Dotenv
+- Multer
+
+---
+
+## 📦 NPM Packages
+
+### Client
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+@heroui/react
+better-auth
+axios
+framer-motion
+react-hook-form
+lucide-react
+react-icons
+recharts
+sonner
+sweetalert2
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Server
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+express
+mongodb
+jsonwebtoken
+stripe
+cookie-parser
+cors
+dotenv
+multer
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 👥 User Roles
 
-To learn more about Next.js, take a look at the following resources:
+### 👤 User
+- Browse Books
+- Search & Filter Books
+- Request Delivery
+- Stripe Payment
+- Reading History
+- Verified Reviews
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📖 Librarian
+- Add New Books
+- Manage Inventory
+- Manage Delivery Requests
+- Update Delivery Status
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛡️ Admin
+- Manage Users
+- Approve/Reject Books
+- Manage Transactions
+- View Analytics
+- Delete Books
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔐 Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Client
+
+```env
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_IMGBB_API_KEY=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+```
+
+### Server
+
+```env
+PORT=
+MONGODB_URI=
+JWT_SECRET=
+STRIPE_SECRET_KEY=
+CLIENT_URL=
+```
+
+---
+
+## 🚀 Installation
+
+### Clone Client
+
+```bash
+git clone <client-repository-url>
+cd biblio-drop-client
+npm install
+npm run dev
+```
+
+### Clone Server
+
+```bash
+git clone <server-repository-url>
+cd biblio-drop-server
+npm install
+npm start
+```
+
+---
+
+## 🔑 Admin Credentials
+
+**Email**
+
+```text
+admin@gmail.com
+```
+
+**Password**
+
+```text
+Admin@123
+```
+
+---
+
+## 📱 Responsive Design
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+---
+
+## 📄 License
+
+This project was developed for educational purposes as part of the Programming Hero Assignment.
