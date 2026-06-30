@@ -3,7 +3,8 @@ import { serverFetch } from "@/lib/api/server";
 import BookCard from "./BookCard";
 
 const FeaturedBooks = async () => {
-  const books = await serverFetch("/api/books");
+  const booksData = await serverFetch("/api/books");
+  const books = booksData.data
 
   const featuredBooks = books.slice(0, 6);
 
