@@ -7,7 +7,7 @@ export const serverMutation = async (path, method, data) => {
    const {token} = await auth.api.getToken({
       headers: await headers()
     })
-    console.log("token",token)
+    // console.log("token",token)
 
 
   const res = await fetch(`${baseUrl}${path}`, {
@@ -37,7 +37,7 @@ export const updateStatus = async (id, status) => {
       fetchDeliveries(); // data reload
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 // get

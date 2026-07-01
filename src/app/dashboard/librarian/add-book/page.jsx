@@ -71,7 +71,7 @@ export default function AddBookForm() {
 
             // API Call
             const resData = await AddBook(bookData)
-            console.log(resData)
+            // console.log(resData)
             if (resData.insertedId) {
                 toast.success("Book Added")
                 // redirect("/dashboard/librarian/manage-inventory")
@@ -79,7 +79,7 @@ export default function AddBookForm() {
             // await axios.post("/api/books", bookData)
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         } finally {
             setLoading(false);
         }

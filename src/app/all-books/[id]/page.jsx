@@ -17,7 +17,7 @@ const BookDetailsPage = async ({params}) => {
       const { id } = await params;
 
       const book = await serverFetch(`/api/books/${id}`)
-      console.log(book)
+      // console.log(book)
 
     return (
         <div>

@@ -39,7 +39,7 @@ export default function ManageDeliveriesTable() {
         await loadDeliveriesBooks();
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

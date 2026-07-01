@@ -84,7 +84,7 @@ export default function EditBookModal({
         onClose();
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Update Failed");
     } finally {
       setLoading(false);

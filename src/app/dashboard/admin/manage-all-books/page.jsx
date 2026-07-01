@@ -19,7 +19,7 @@ const ManageAllBooksPage = () => {
         loadBooks();
     }, []);
 
-    console.log(books);
+    // console.log(books);
 
     const handleStatus = async (id, isPublished) => {
         const result = await UpdateBookStatus(id, isPublished);

@@ -9,7 +9,7 @@ const BookApprovalQueue = () => {
   useEffect(() => {
     loadPendingBooks();
   }, []);
-  console.log(books)
+  // console.log(books)
 
   const loadPendingBooks = async () => {
     const res = await fetch(

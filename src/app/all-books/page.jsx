@@ -1,4 +1,5 @@
 import BookCard from '@/components/BookCard';
+import FilterPanel from '@/components/FilterPanal';
 import { serverFetch } from '@/lib/api/server';
 import { Pagination } from '@heroui/react';
 import Link from 'next/link';
@@ -6,13 +7,16 @@ import React from 'react';
 
 const AllBooks = async ({ searchParams }) => {
 
-    const { page } = await searchParams;
+   const { page = 1, search = "", category = "", author = "" } = await searchParams;
+
     // if (!page) {
     //     page = 1;
     // }
     // console.log(page)
-    const booksData = await serverFetch(`/api/books?page=${page}`);
-    console.log("databooks",booksData)
+    // const booksData = await serverFetch(`/api/books?page=${page}`);
+    const booksData = await serverFetch(`/api/books?page=${page}&search=${search}&category=${category}&author=${author}`
+);
+    // console.log("databooks",booksData)
    
     const pages =[];
     const bookspage = booksData?.page;
@@ -26,6 +30,9 @@ const AllBooks = async ({ searchParams }) => {
 
     return (
         <div >
+            <div>
+                <FilterPanel></FilterPanel>
+            </div>
             <div className=' w-11/12 mx-auto mb-15 grid md:grid-cols-3 lg:grid-cols-4 gap-5  '>
 
                 {booksData.data?.map(book => <BookCard key={book._id} book={book}></BookCard>)}
@@ -38,7 +45,7 @@ const AllBooks = async ({ searchParams }) => {
                             <Pagination.Previous
                                 isDisabled={bookspage === 1}
                             >
-                                <Link className='flex gap-2' href={`all-books?page=${bookspage-1}`}>
+                                <Link className='flex gap-2' href={`/all-books?page=${bookspage - 1}&search=${search}&category=${category}&author=${author}`}>
                                 <Pagination.PreviousIcon />
                                 Prev
                                 </Link>
@@ -46,7 +53,7 @@ const AllBooks = async ({ searchParams }) => {
                         </Pagination.Item>
                         {pages.map((p) => (
                             <Pagination.Item key={p}>
-                                <Link href={`all-books?page=${p}`}>
+                                <Link href={`/all-books?page=${p}&search=${search}&category=${category}&author=${author}`}>
                                 <Pagination.Link isActive={p === bookspage} >
                                     {p}
                                 </Pagination.Link>
@@ -58,7 +65,7 @@ const AllBooks = async ({ searchParams }) => {
                                 isDisabled={bookspage === totalPages}
                               
                             >
-                                <Link className='flex gap-2' href={`all-books?page=${bookspage+1}`}>
+                                <Link className='flex gap-2'  href={`/all-books?page=${bookspage + 1}&search=${search}&category=${category}&author=${author}`}  >
                                 Next
                                 <Pagination.NextIcon />
                                 </Link>

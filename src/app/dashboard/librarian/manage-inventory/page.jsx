@@ -29,7 +29,7 @@ function ManageInventoryTable() {
 
   loadBooks();
 }, [session]);
-  console.log(booksData)
+  // console.log(booksData)
 
   const handleDelete = async (id) => {
     try {
@@ -41,7 +41,7 @@ function ManageInventoryTable() {
         );
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
