@@ -2,10 +2,12 @@
 
 import { Avatar } from "@heroui/react";
 import { FaStar } from "react-icons/fa";
+import MotionWrapper from "./MotionWrapper";
 
 export default function TestimonialSection() {
   return (
     <section className="px-4 ">
+      <MotionWrapper>
       <div className="max-w-7xl mx-auto rounded-none md:rounded-lg overflow-hidden bg-gradient-to-r from-fuchsia-600 via-purple-600 to-violet-600">
         <div className="max-w-5xl mx-auto px-8 py-10 text-center">
           {/* Stars */}
@@ -44,6 +46,7 @@ export default function TestimonialSection() {
           </div>
         </div>
       </div>
+      </MotionWrapper>
     </section>
   );
 }

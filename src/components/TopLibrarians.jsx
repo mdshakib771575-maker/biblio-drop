@@ -3,6 +3,7 @@
 import { Card, Avatar, Button } from "@heroui/react";
 import { FaStar } from "react-icons/fa";
 import { BookOpen, MessageSquare, Trophy } from "lucide-react";
+import MotionWrapper from "./MotionWrapper";
 
 const librarians = [
   {
@@ -40,6 +41,7 @@ const librarians = [
 export default function TopLibrarians() {
   return (
     <section className="py-20 px-6 bg-[#f6f4fb]">
+      <MotionWrapper>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
@@ -54,6 +56,7 @@ export default function TopLibrarians() {
         </div>
 
         {/* Cards */}
+        <MotionWrapper>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {librarians.map((item) => (
             <Card
@@ -132,7 +135,9 @@ export default function TopLibrarians() {
             </Card>
           ))}
         </div>
+        </MotionWrapper>
       </div>
+    </MotionWrapper>
     </section>
   );
 }

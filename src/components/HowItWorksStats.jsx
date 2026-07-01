@@ -2,6 +2,7 @@
 
 import { Card } from "@heroui/react";
 import { Search, Truck, CheckCircle2 } from "lucide-react";
+import MotionWrapper from "./MotionWrapper";
 
 const steps = [
   {
@@ -30,6 +31,7 @@ const steps = [
 export default function HowItWorks() {
   return (
     <section className="py-24 bg-[#f8f6fc]">
+      <MotionWrapper>
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-20">
@@ -43,11 +45,13 @@ export default function HowItWorks() {
         </div>
 
         {/* Cards */}
+        <MotionWrapper>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {steps.map((step) => {
             const Icon = step.icon;
 
             return (
+          
               <Card
                 key={step.number}
                 className="relative rounded-[36px] border border-violet-100 bg-white p-10 shadow-sm hover:-translate-y-2 transition-all duration-300"
@@ -77,7 +81,10 @@ export default function HowItWorks() {
             );
           })}
         </div>
+        </MotionWrapper>
       </div>
+      </MotionWrapper>
+
     </section>
   );
 }

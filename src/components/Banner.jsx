@@ -4,6 +4,9 @@ import Link from "next/link";
 import { Button } from "@heroui/react";
 import { ArrowRight, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
+import { motion } from "motion/react"
+
+
 
 const slides = [
   {
@@ -94,21 +97,22 @@ export default function Banner() {
   return (
     <section className="relative overflow-hidden ">
       {/* Left Arrow */}
-      <button
-        onClick={prev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-md border border-violet-200 text-violet-600 hover:bg-violet-50 transition"
-        aria-label="Previous slide"
+      <Button
+        isIconOnly
+        onPress={prev}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-violet-200 bg-white text-violet-600 shadow-md transition hover:bg-violet-50"
       >
-        <ChevronLeft size={22} />
-      </button>
+        <ChevronLeft className="w-5 h-5" />
+      </Button>
 
       {/* Right Arrow */}
       <button
+        type="button"
         onClick={next}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white shadow-md border border-violet-200 text-violet-600 hover:bg-violet-50 transition"
         aria-label="Next slide"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-violet-200 bg-white text-violet-600 shadow-md transition hover:bg-violet-50"
       >
-        <ChevronRight size={22} />
+        <ChevronRight className="h-5 w-5" />
       </button>
 
       <div className="max-w-7xl mx-auto px-14 lg:px-8 py-5 ">
@@ -116,21 +120,34 @@ export default function Banner() {
 
           {/* Left Content */}
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-100 text-purple-500 text-sm font-medium mb-6">
+            <motion.div initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-100 text-purple-500 text-sm font-medium mb-6">
               <BookOpen size={16} />
               {slide.badge}
-            </div>
+            </motion.div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+            <motion.h1 initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8 }} className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               {slide.heading}
               <span className="block tracking-tight bg-gradient-to-r from-pink-500 via-purple-500 to-purple-500 bg-clip-text text-transparent">{slide.highlight}</span>
-            </h1>
+            </motion.h1>
 
-            <p className="mt-6 text-lg text-gray-600 max-w-xl">
+            <motion.p initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8 }} className="mt-6 text-lg text-gray-600 max-w-xl">
               {slide.description}
-            </p>
+            </motion.p >
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            <motion.div initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.8 }} className="flex flex-wrap gap-4 mt-8">
               <Button
                 as={Link}
                 href={slide.primaryBtn.href}
@@ -145,33 +162,40 @@ export default function Banner() {
               <Button
                 as={Link}
                 href={slide.secondaryBtn.href}
-                 className={"rounded-md"}
+                className={"rounded-md"}
                 variant="outline"
                 size="lg"
               >
                 {slide.secondaryBtn.label}
               </Button>
-            </div>
+            </motion.div>
 
-            <div className="flex items-center gap-8 mt-10">
+            <motion.div initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.8 }} className="flex items-center gap-8 mt-10">
               {slide.stats.map((stat) => (
                 <div key={stat.label}>
                   <h3 className="font-bold text-2xl">{stat.value}</h3>
                   <p className="text-gray-500 text-sm">{stat.label}</p>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Illustration */}
-          <div className="relative">
+          <motion.div initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.8 }} className="relative">
             <div className="absolute inset-0 bg-violet-100 rounded-full blur-3xl opacity-40" />
             <img
               src={slide.image}
               alt={slide.imageAlt}
               className="relative w-full max-w-xl mx-auto rounded-2xl"
             />
-          </div>
+
+          </motion.div>
         </div>
 
         {/* Dot indicators - centered below banner */}
@@ -181,11 +205,10 @@ export default function Banner() {
               key={i}
               onClick={() => goTo(i, i > current ? "next" : "prev")}
               aria-label={`Go to slide ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                i === current
-                  ? "w-6 h-2.5 bg-violet-600"
-                  : "w-2.5 h-2.5 bg-violet-200 hover:bg-violet-400"
-              }`}
+              className={`rounded-full transition-all duration-300 ${i === current
+                ? "w-6 h-2.5 bg-violet-600"
+                : "w-2.5 h-2.5 bg-violet-200 hover:bg-violet-400"
+                }`}
             />
           ))}
         </div>

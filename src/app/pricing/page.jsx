@@ -1,3 +1,4 @@
+import MotionWrapper from "@/components/MotionWrapper";
 import { Button } from "@heroui/react";
 
 export default function SellerPricingPage() {
@@ -51,6 +52,8 @@ export default function SellerPricingPage() {
   return (
     <main className="bg-linear-to-b from-white to-gray-50 w-11/12 mx-auto">
       {/* Hero */}
+
+      <MotionWrapper>
       <section className="mx-auto max-w-11/12 px-4 py-20 text-center">
         <span className="inline-flex rounded-full border px-4 py-1 text-sm font-medium">
           Become a Librarian
@@ -68,8 +71,10 @@ export default function SellerPricingPage() {
           powerful tools, secure payments, and dedicated seller support.
         </p>
       </section>
+      </MotionWrapper>
 
       {/* Pricing */}
+      <MotionWrapper>
       <section className="mx-auto max-w-7xl px-4 pb-20">
         <div className="grid gap-8 lg:grid-cols-3">
           {plans.map((plan) => (
@@ -128,8 +133,10 @@ export default function SellerPricingPage() {
           ))}
         </div>
       </section>
+      </MotionWrapper>
 
       {/* Features */}
+       <MotionWrapper>
       <section className="border-t bg-white">
         <div className="mx-auto max-w-7xl px-4 py-20">
           <h2 className="text-center text-3xl font-bold">Why Sell With Us?</h2>
@@ -165,8 +172,10 @@ export default function SellerPricingPage() {
           </div>
         </div>
       </section>
+      </MotionWrapper>
 
       {/* CTA */}
+         <MotionWrapper>
       <section className="mx-auto max-w-5xl px-4 py-20">
         <div className="rounded-3xl border bg-linear-to-r from-primary/10 to-primary/5 p-10 text-center">
           <h2 className="text-3xl font-bold">Ready to Start Selling?</h2>
@@ -180,6 +189,7 @@ export default function SellerPricingPage() {
           </button>
         </div>
       </section>
+      </MotionWrapper>
     </main>
   );
 }

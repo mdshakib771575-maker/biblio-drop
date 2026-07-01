@@ -1,4 +1,5 @@
 import { BookOpen, Users, Library, Star } from "lucide-react";
+import MotionWrapper from "./MotionWrapper";
 
 const stats = [
   {
@@ -26,6 +27,7 @@ const stats = [
 export default function StatsSection() {
   return (
     <section className="">
+      <MotionWrapper>
       <div className=" bg-gradient-to-r from-fuchsia-600 via-violet-600 to-purple-600 px-8 py-12 shadow-2xl">
         <div className="grid grid-cols-2 gap-10 text-center text-white lg:grid-cols-4">
           {stats.map((item, index) => {
@@ -49,6 +51,7 @@ export default function StatsSection() {
           })}
         </div>
       </div>
+      </MotionWrapper>
     </section>
   );
 }

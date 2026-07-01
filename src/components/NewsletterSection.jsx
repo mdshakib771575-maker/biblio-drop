@@ -2,10 +2,12 @@
 
 import { Button, Input } from "@heroui/react";
 import { Mail } from "lucide-react";
+import MotionWrapper from "./MotionWrapper";
 
 export default function NewsletterSection() {
   return (
     <section className="w-11/12 mx-auto my-24">
+      <MotionWrapper>
       <div className="rounded-[32px] border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 shadow-xl">
         <div className="max-w-3xl mx-auto px-8 py-20 text-center">
 
@@ -52,6 +54,7 @@ export default function NewsletterSection() {
 
         </div>
       </div>
+      </MotionWrapper>
     </section>
   );
 }
