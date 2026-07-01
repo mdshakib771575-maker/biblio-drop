@@ -12,10 +12,11 @@ const AllBooks = async ({ searchParams }) => {
     // }
     // console.log(page)
     const booksData = await serverFetch(`/api/books?page=${page}`);
-    const books = booksData.data;
+    console.log("databooks",booksData)
+   
     const pages =[];
-    const bookspage = booksData.page;
-    const totalPages = booksData.totalPage;
+    const bookspage = booksData?.page;
+    const totalPages = booksData?.totalPage;
 
     for (let i = 1; i <= totalPages; i++) {
           pages.push(i);
@@ -27,7 +28,7 @@ const AllBooks = async ({ searchParams }) => {
         <div >
             <div className=' w-11/12 mx-auto mb-15 grid md:grid-cols-3 lg:grid-cols-4 gap-5  '>
 
-                {books.map(book => <BookCard key={book._id} book={book}></BookCard>)}
+                {booksData.data?.map(book => <BookCard key={book._id} book={book}></BookCard>)}
             </div>
 
             <div className='my-10'>
@@ -74,3 +75,4 @@ const AllBooks = async ({ searchParams }) => {
 };
 
 export default AllBooks;
+export const dynamic = "force-dynamic";

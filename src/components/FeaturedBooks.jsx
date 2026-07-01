@@ -4,10 +4,8 @@ import BookCard from "./BookCard";
 
 const FeaturedBooks = async () => {
   const booksData = await serverFetch("/api/books");
-  const books = booksData.data
-
-  const featuredBooks = books.slice(0, 6);
-
+ 
+  console.log("booksData",booksData)
   return (
     <div className="w-11/12 mx-auto mb-10">
       <div className="mb-8 text-center">
@@ -18,7 +16,7 @@ const FeaturedBooks = async () => {
       </div>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-5">
-        {featuredBooks.map((book) => (
+        {booksData && booksData?.data?.slice(0,6).map((book) => (
           <BookCard key={book._id} book={book} />
         ))}
       </div>

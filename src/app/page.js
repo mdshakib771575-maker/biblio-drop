@@ -17,6 +17,7 @@ export default function Home() {
      <TopLibrarians></TopLibrarians>
      <TestimonialSection></TestimonialSection>
      <NewsletterSection></NewsletterSection>
-    </div>
+    </div> 
   );
 }
+export const dynamic = "force-dynamic";

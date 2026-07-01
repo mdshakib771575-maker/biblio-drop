@@ -6,7 +6,7 @@ export async function proxy(request) {
    const session = await auth.api.getSession({
     headers: await headers()
    }) 
-   console.log(session)
+//    console.log(session)
   //  if(session?.user?.role =="librarian" && session?.user?.plan=="free"){
   //    return NextResponse.redirect(new URL('/pricing', request.url))
   //  }
